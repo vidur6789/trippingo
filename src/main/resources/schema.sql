@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS attractions;
+ 
+CREATE TABLE attractions (
+  id VARCHAR(100)  PRIMARY KEY,
+  name VARCHAR(500) NOT NULL,
+  description VARCHAR(4000) NOT NULL,
+  category VARCHAR(100) DEFAULT NULL
+);
