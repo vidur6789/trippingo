@@ -1,2 +1,2 @@
 # trippingo
-Smart Singapore Travel Planner
+Singapore Travel Planner
