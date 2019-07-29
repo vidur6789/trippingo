@@ -9,7 +9,7 @@
  - Run the TrippingoApp.java as Java Application
  
  
-## Starting the Application from Comand Line:
+## Starting the Application from Command Line:
  - Execute 'gradlew bootRun' in root directory
  
  ## Accessing the Embedded H2 Database
