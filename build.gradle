@@ -39,5 +39,5 @@ dependencies {
 
 application {
     // Define the main class for the application
-    mainClassName = 'trippingo.App'
+    mainClassName = 'trippingo.TrippingoApp'
 }
