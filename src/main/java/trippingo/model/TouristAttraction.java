@@ -44,7 +44,7 @@ public class TouristAttraction {
 	
 	private String keywords;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
 	private Set<Review>reviews;
 	
 	public String getId() {
