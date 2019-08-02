@@ -3,11 +3,52 @@
  */
 package trippingo;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+
+import trippingo.model.TravellerType;
+import trippingo.utils.StringUtils;
 
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
-        TrippingoApp classUnderTest = new TrippingoApp();
+    public static void main(String[] args) throws ParseException {
+        LocalTime localTime = new LocalTime(10,0);
+        System.out.println(localTime.toString());
+        System.out.println(parseTime(" 8:30 PM ").toString());
+        System.out.println(" 8:30 PM ".indexOf(":"));
+        System.out.println(" 8:30 PM ".substring(0, 5));
+        System.out.println("271004a".matches("\\d*"));
+        System.out.println(TravellerType.fromTripadvisorValue("solo"));
+        
+        System.out.println(parseDate("December 2018"));
+        
+        
+    }
+    
+    private static LocalTime parseTime(String time) {
+		if(StringUtils.isNotNull(time) && time.trim()!= "-") {
+			time = time.trim();
+			boolean isPM = time.endsWith("PM");
+			int additive = isPM? 12 : 0;
+			int middleIndex = time.indexOf(":");
+			String hour = time.substring(0,middleIndex);
+			
+			String minutes = time.substring(middleIndex+1,middleIndex+3);
+			return new LocalTime(Integer.parseInt(hour)+additive, Integer.parseInt(minutes));
+		}
+		return null;
+    }
+    
+    private static LocalDate parseDate(String dateString) throws ParseException {
+		String[] splitDateStr = dateString.split(" ");
+    	Date monthDate = new SimpleDateFormat("MMMM").parse(splitDateStr[0]);
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(monthDate);
+    	int month = cal.get(Calendar.MONTH);
+		return new LocalDate(Integer.parseInt(splitDateStr[1]), month+1, 1);
     }
 }
