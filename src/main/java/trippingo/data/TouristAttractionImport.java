@@ -2,86 +2,101 @@ package trippingo.data;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.stereotype.Component;
 
+import trippingo.datatype.Range;
 import trippingo.model.AttractionCategory;
 import trippingo.model.Review;
 import trippingo.model.TouristAttraction;
 import trippingo.model.TravellerType;
 import trippingo.repository.TouristAttractionRepository;
-import trippingo.service.TouristAttractionController;
 import trippingo.utils.StringUtils;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
+@Component
 public class TouristAttractionImport {
 	
 	@Autowired
 	private TouristAttractionRepository repository ;
+	private static final Logger logger = LogManager.getLogger(TouristAttractionImport.class);
 	
-	@Test
+	private static final String RELATIVE_FILE_PATH = "\\data\\sentosa.json";
+	
 	public void importData() {
+		logger.info("Starting Tourist Attraction Import");
 		JSONParser parser = new JSONParser();
-		Set<String> errors = new HashSet<String>();
-		
+		int saveCount=0;
 		try {
-			String filePath = new File("").getCanonicalPath() + "\\data\\sentosa.json";
+			String filePath = new File("").getCanonicalPath() + RELATIVE_FILE_PATH;
 			Reader reader = new FileReader(filePath);
 			JSONArray attractions = (JSONArray) parser.parse(reader);
+			logger.info("Loaded "+attractions.size()+" attractions from "+ RELATIVE_FILE_PATH);
             Iterator<JSONObject> iterator = attractions.iterator();
+            JSONObject object;
             while (iterator.hasNext()) {
-				JSONObject object = iterator.next();
+				object = iterator.next();
+				String name =object.get("attractions").toString();
+				if(!isValidAttraction(object)) {
+					logger.info("Ignored " + name);
+					continue;
+				}
                 TouristAttraction attraction;
 				try {
 					attraction = parseAttraction(object);
 					repository.save(attraction);
+					saveCount++;
 				} catch (Exception e) {
-					e.printStackTrace();
-					String name =(object.get("attractions").toString());
-					errors.add("Exception for attractionName:"+name+ "\n" + e.getMessage());
+					name =object.get("attractions").toString();
+					logger.error("\nException for attractionName:"+name , e);
 				}
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-		}
+        } catch (Exception e) {
+        	logger.error(e);
+        }
+		logger.info("Imported "+saveCount+" attractions");
+		logger.info("Ending Tourist Attraction Import");
 		
+	}
+
+	private boolean isValidAttraction(JSONObject object) {
+		Predicate<Object> isClosed = hours -> "PERMANENTLY CLOSED".equals(hours.toString().trim()); 
+		if(object==null)
+			return false;
+		if(isClosed.test(object.get("opening hours")) || isClosed.test(object.get("closing hours")))
+			return false;
+		
+		return true;
 	}
 
 	private static TouristAttraction parseAttraction(JSONObject object)  throws Exception{
 		TouristAttraction attraction = new TouristAttraction();
-		attraction.setId(UUID.randomUUID().toString());
 		/**
 		 * NAME, DESCRIPTION, KEYWORDS
 		 */
 		attraction.setName(object.get("attractions").toString());
 		attraction.setDescription(object.get("about").toString());
-		List<String> keywords = (JSONArray)object.get("keywords");
-		attraction.setKeywords(keywords.stream().map(String::trim).collect(Collectors.joining("#")));
+		Object keywords = object.get("keywords");
+		List<String> keywordList = keywords.toString().contentEquals("-") ? Collections.emptyList():(JSONArray)object.get("keywords");
+		attraction.setKeywords(keywordList.stream().map(String::trim).collect(Collectors.joining(",")));
 		/**
 		 * CATEGORY
 		 * one or more categories? predefined limited categories, or unlimited categories?
@@ -115,7 +130,6 @@ public class TouristAttractionImport {
 	
 	private static Review parseReview(JSONObject object) {
 		Review review = new Review();
-		review.setSerialNo(Integer.valueOf(object.get("no").toString()));
 		review.setRating(Integer.valueOf(object.get("rating").toString()));
 		review.setUsername(object.get("username").toString());
 		review.setVisitDate(parseDate(object.get("visitdate").toString()));
@@ -131,17 +145,30 @@ public class TouristAttractionImport {
 	    	Calendar cal = Calendar.getInstance();
 	    	cal.setTime(monthDate);
 	    	int month = cal.get(Calendar.MONTH);
-			return new LocalDate(Integer.parseInt(splitDateStr[1]), month+1, 1);
+			return LocalDate.of(Integer.parseInt(splitDateStr[1]), month+1, 1);
 		} catch (java.text.ParseException e) {
 			return LocalDate.now();
 		}
     }
 
-	private static Double parseDuration(String duration) {
-		if(StringUtils.isNotNull(duration) && duration!= "-") {
-			return new Double(0);
+	private static Range parseDuration(String duration) {
+		duration = duration.trim().toLowerCase();
+		if(StringUtils.isNull(duration) || duration.contentEquals("-") || duration == "-")
+			return null;
+		duration = duration.replaceFirst("<", "0 to ");
+		duration = duration.replaceFirst("\\s*(hour|hours)\\s*\\z", "").trim();
+		if(duration.contains("to")) {
+			String[] durationArr = duration.split("to");
+			return new Range(Double.valueOf(durationArr[0].trim()), Double.valueOf(durationArr[1].trim()));
 		}
-		return null;
+		else if(duration.contains("-")) {
+			String[] durationArr = duration.split("-");
+			return new Range(Double.valueOf(durationArr[0].trim()), Double.valueOf(durationArr[1].trim()));
+		}
+		else {
+			return new Range(Double.valueOf(duration.trim()), Double.valueOf(duration.trim())); 
+		}
+		
 	}
 
 	private static AttractionCategory parseCategory(String categories) {
@@ -149,17 +176,17 @@ public class TouristAttractionImport {
 	}
 
 	private static LocalTime parseTime(String time) {
-		if(StringUtils.isNotNull(time) && time.trim()!= "-") {
-			time = time.trim();
-			boolean isPM = time.endsWith("PM");
-			int additive = isPM? 12 : 0;
-			int middleIndex = time.indexOf(":");
-			String hour = time.substring(0,middleIndex);
-			String minutes = time.substring(middleIndex+1,middleIndex+3);
-			return new LocalTime(Integer.parseInt(hour)+additive, Integer.parseInt(minutes));
-		}
-		return null;
-			
+		time = time.trim();
+		if(StringUtils.isNull(time) || time.contentEquals("-"))
+			return null;
+		boolean isPM = time.endsWith("PM");
+		int additive = isPM? 12 : 0;
+		int middleIndex = time.indexOf(":");
+		if (middleIndex == -1)
+			middleIndex = time.indexOf("."); // some operating hours use "." instead of ":"
+		String hour = time.substring(0,middleIndex);
+		String minutes = time.substring(middleIndex+1,middleIndex+3);
+		return LocalTime.of(Integer.parseInt(hour)+additive, Integer.parseInt(minutes));
 	}
 	
 	private static String parsePostalCode(String location) {

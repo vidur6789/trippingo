@@ -1,9 +1,23 @@
 
 package trippingo.repository;
 
-import trippingo.model.TouristAttraction;
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
-public interface TouristAttractionRepository extends CrudRepository<TouristAttraction, String> {
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import trippingo.model.TouristAttraction;
+
+public interface TouristAttractionRepository extends CrudRepository<TouristAttraction, Long> {
+	
+	@Query("SELECT a FROM TouristAttraction a WHERE a.name = :name")
+	public TouristAttraction findByName(@Param("name")String name);
+	
+	@Query("SELECT a FROM TouristAttraction a WHERE a.keywords LIKE CONCAT('%',LOWER(:keyword),'%')")
+	public List<TouristAttraction> findAllByKeyword(@Param("keyword")String keyword);
+	
+	@Query("SELECT a FROM TouristAttraction a WHERE UPPER(a.name) LIKE CONCAT('%',UPPER(:name),'%')")
+	public List<TouristAttraction> findAllByName(@Param("name")String name);
 
 }

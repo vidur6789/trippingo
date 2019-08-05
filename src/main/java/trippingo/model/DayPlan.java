@@ -1,7 +1,10 @@
 package trippingo.model;
 
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 
+import javax.persistence.Entity;
+
+@Entity
 public class DayPlan {
 
 	private LocalDate travelDate;

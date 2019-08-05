@@ -1,56 +1,71 @@
 package trippingo.model;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalTime;
+import trippingo.datatype.Range;
+
 
 @Entity
 @Table(name="attraction")
 public class TouristAttraction {
 	
 	@Id
-	private String id;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "attraction_generator")
+	private Long id;
 	
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length=4000)
 	private String description;
 	
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private AttractionCategory category;
 	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	private LocalTime openingTime;
 	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime")
 	private LocalTime closingTime;
 	
-	private Double recommendedDuration;
+	@Embedded
+	@AttributeOverrides({
+		  @AttributeOverride( name = "from", column = @Column(name = "duration_from")),
+		  @AttributeOverride( name = "to", column = @Column(name = "duration_to")),
+	})
+	private Range recommendedDuration;
 	
 	private BigDecimal price;
 	
 	private String postalCode;
-	
+	@Column(length=4000)
 	private String keywords;
 	
-	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+	@JoinColumn(name="ATTRACTION_ID")
 	private Set<Review>reviews;
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -83,10 +98,10 @@ public class TouristAttraction {
 	public void setClosingTime(LocalTime closingTime) {
 		this.closingTime = closingTime;
 	}
-	public Double getRecommendedDuration() {
+	public Range getRecommendedDuration() {
 		return recommendedDuration;
 	}
-	public void setRecommendedDuration(Double recommendedDuration) {
+	public void setRecommendedDuration(Range recommendedDuration) {
 		this.recommendedDuration = recommendedDuration;
 	}
 	public BigDecimal getPrice() {
@@ -101,6 +116,7 @@ public class TouristAttraction {
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
+	
 	public String getKeywords() {
 		return keywords;
 	}

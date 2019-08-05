@@ -1,26 +1,34 @@
 package trippingo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 
-import org.joda.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 @Entity
+@Table(name="review")
 public class Review {
 	@Id
-	private Integer serialNo;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_generator")
+	private Long id;
 	private String username;
 	private Integer rating;
 	private LocalDate visitDate;
+	
+	@Enumerated(EnumType.STRING)
 	private TravellerType travellerType;
-	public Integer getSerialNo() {
-		return serialNo;
+	
+	public Long getId() {
+		return id;
 	}
-	public void setSerialNo(Integer serialNo) {
-		this.serialNo = serialNo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getUsername() {
 		return username;
