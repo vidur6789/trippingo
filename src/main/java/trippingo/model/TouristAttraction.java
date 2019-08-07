@@ -62,6 +62,16 @@ public class TouristAttraction {
 	@JoinColumn(name="ATTRACTION_ID")
 	private Set<Review>reviews;
 	
+	@Embedded
+	@AttributeOverrides({
+		  @AttributeOverride( name = "familyRank", column = @Column(name = "family_rank")),
+		  @AttributeOverride( name = "coupleRank", column = @Column(name = "couple_rank")),
+		  @AttributeOverride( name = "friendsRank", column = @Column(name = "friends_rank")),
+		  @AttributeOverride( name = "businessRank", column = @Column(name = "business_rank")),
+		  @AttributeOverride( name = "soloRank", column = @Column(name = "solo_rank")),
+	})
+	private AttractionRank attractionRank;
+	
 	public Long getId() {
 		return id;
 	}
@@ -80,11 +90,20 @@ public class TouristAttraction {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
+	
 	public AttractionCategory getCategory() {
 		return category;
 	}
 	public void setCategory(AttractionCategory category) {
 		this.category = category;
+	}
+	public AttractionRank getAttractionRank() {
+		return attractionRank;
+	}
+	public void setAttractionRank(AttractionRank attractionRank) {
+		this.attractionRank = attractionRank;
 	}
 	public LocalTime getOpeningTime() {
 		return openingTime;

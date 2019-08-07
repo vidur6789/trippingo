@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
 
-import trippingo.data.TouristAttractionImport;
+import trippingo.data.TouristAttractionImportWithRank;
 
 @Component
 public class ImportDataUtility implements CommandLineRunner {
@@ -16,7 +16,7 @@ public class ImportDataUtility implements CommandLineRunner {
     private static final Logger logger = LogManager.getLogger(ImportDataUtility.class);
     
 	@Autowired
-	private TouristAttractionImport attractionUtility;
+	private TouristAttractionImportWithRank attractionUtility;
 	
 	@Value("${trippingo.importdata}")
 	private boolean importData;

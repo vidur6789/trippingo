@@ -38,7 +38,7 @@ public class TouristAttractionImport {
 	private TouristAttractionRepository repository ;
 	private static final Logger logger = LogManager.getLogger(TouristAttractionImport.class);
 	
-	private static final String RELATIVE_FILE_PATH = "\\data\\sentosa.json";
+	private static final String RELATIVE_FILE_PATH = "\\data\\All_fixed.json";
 	
 	public void importData() {
 		logger.info("Starting Tourist Attraction Import");
