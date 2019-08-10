@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
 
+import trippingo.data.PromotionImport;
 import trippingo.data.TouristAttractionImportWithRank;
 
 @Component
@@ -18,6 +19,9 @@ public class ImportDataUtility implements CommandLineRunner {
 	@Autowired
 	private TouristAttractionImportWithRank attractionUtility;
 	
+	@Autowired
+	private PromotionImport promotionUtility;
+	
 	@Value("${trippingo.importdata}")
 	private boolean importData;
 
@@ -27,8 +31,10 @@ public class ImportDataUtility implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		if(importData)
-			attractionUtility.importData();	
+		if(importData) {
+//			attractionUtility.importData();	
+			promotionUtility.importData();
+		}
 	}
 	
 	

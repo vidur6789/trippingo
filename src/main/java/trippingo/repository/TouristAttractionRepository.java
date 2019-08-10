@@ -1,4 +1,5 @@
 
+
 package trippingo.repository;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public interface TouristAttractionRepository extends CrudRepository<TouristAttra
 	
 	@Query("SELECT a FROM TouristAttraction a WHERE a.keywords LIKE CONCAT('%',LOWER(:keyword),'%')")
 	public List<TouristAttraction> findAllByKeyword(@Param("keyword")String keyword);
+	
+	@Query(value = "SELECT c.attraction_id FROM ATTRACTION_CATEGORY c WHERE c.categories IN :categories", nativeQuery = true)
+	public List<Long> findAllByCategory(@Param("categories")List<String> categories);
 	
 	@Query("SELECT a FROM TouristAttraction a WHERE UPPER(a.name) LIKE CONCAT('%',UPPER(:name),'%')")
 	public List<TouristAttraction> findAllByName(@Param("name")String name);

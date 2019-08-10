@@ -1,6 +1,5 @@
 package trippingo.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import trippingo.model.TouristAttraction;
 import trippingo.repository.TouristAttractionRepository;
+import trippingo.utils.CommonUtils;
 import trippingo.utils.StringUtils;
 
 @RestController
@@ -23,19 +23,26 @@ public class TouristAttractionController {
 	@Autowired 
 	private TouristAttractionRepository attractionRepository;
 	
+	@Autowired
+	private PromotionController promotionService;
+	
 	@GetMapping("/{id}")
 	public TouristAttraction fetchAttraction(@PathVariable Long id,
-											 @RequestParam(value="reviews", defaultValue = "false") boolean fetchReviews) {
+											 @RequestParam(value="detailed", defaultValue = "false") boolean detailed) {
 		TouristAttraction attraction =  attractionRepository.findById(id).orElse(null);
-		if(!fetchReviews) {
-			attraction.setReviews(Collections.emptySet());
+		//REMOVE DETAILS
+		if(!detailed)
+			CommonUtils.removeDetails(attraction);
+		else {
+			attraction.setPromotions(promotionService.fetchPromotionsById(attraction.getId()));
 		}
+			
 		return attraction;
 		
 	}
 	
 	@GetMapping
-	public Iterable<TouristAttraction> fetchAttractions(@RequestParam(value="name", required = false) String name,
+	public List<TouristAttraction> fetchAttractions(@RequestParam(value="name", required = false) String name,
 													@RequestParam(value="keyword", required = false) String keyword) {
 		List<TouristAttraction> attractions;
 		if(StringUtils.isNotNull(name)) {
@@ -47,7 +54,7 @@ public class TouristAttractionController {
 		else {
 			attractions = (List<TouristAttraction>) attractionRepository.findAll();
 		}
-		attractions.stream().forEach(a -> a.setReviews(Collections.emptySet()));
+		attractions.stream().forEach(CommonUtils::removeDetails);
 		return attractions;
 	}
 	

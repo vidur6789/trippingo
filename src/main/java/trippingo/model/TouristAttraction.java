@@ -2,12 +2,14 @@ package trippingo.model;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,8 +19,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import trippingo.datatype.Range;
 
@@ -38,8 +42,10 @@ public class TouristAttraction {
 	private String description;
 	
 	@Column(nullable = false)
+	@ElementCollection(targetClass = AttractionCategory.class)
 	@Enumerated(EnumType.STRING)
-	private AttractionCategory category;
+	@JoinTable(name = "attraction_category", joinColumns = @JoinColumn(name = "attraction_id"))
+	private Set<AttractionCategory> categories;
 	
 	private LocalTime openingTime;
 	
@@ -72,6 +78,11 @@ public class TouristAttraction {
 	})
 	private AttractionRank attractionRank;
 	
+	private Boolean isOutdoor;
+	
+	@Transient
+	private List<Promotion> promotions;
+	
 	public Long getId() {
 		return id;
 	}
@@ -91,13 +102,11 @@ public class TouristAttraction {
 		this.description = description;
 	}
 	
-	
-	
-	public AttractionCategory getCategory() {
-		return category;
+	public Set<AttractionCategory> getCategories() {
+		return categories;
 	}
-	public void setCategory(AttractionCategory category) {
-		this.category = category;
+	public void setCategories(Set<AttractionCategory> categories) {
+		this.categories = categories;
 	}
 	public AttractionRank getAttractionRank() {
 		return attractionRank;
@@ -148,12 +157,20 @@ public class TouristAttraction {
 	public void setReviews(Set<Review> reviews) {
 		this.reviews = reviews;
 	}
+	public Boolean getIsOutdoor() {
+		return isOutdoor;
+	}
+	public void setIsOutdoor(Boolean isOutdoor) {
+		this.isOutdoor = isOutdoor;
+	}
+	public List<Promotion> getPromotions() {
+		return promotions;
+	}
+	public void setPromotions(List<Promotion> promotions) {
+		this.promotions = promotions;
+	}
 	
 	
 	
 	
-	
-	
-	
-
 }

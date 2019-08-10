@@ -20,6 +20,7 @@ public class AppTest {
         System.out.println(parseTime(" 8:30 PM ").toString());
         System.out.println(parseDate("December 2018"));
         System.out.println("1 to 2 hour".replaceFirst("<", "0 to "));
+        System.out.println("99000+".replaceFirst("\\+", ""));
     }
     
     private static LocalTime parseTime(String time) {

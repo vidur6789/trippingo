@@ -1,7 +1,5 @@
 package trippingo.model;
 
-import org.kie.internal.builder.conf.LanguageLevelOption;
-
 public enum TravellerType {
 	Family,
 	Couple,

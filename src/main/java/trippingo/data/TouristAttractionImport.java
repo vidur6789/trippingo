@@ -101,7 +101,7 @@ public class TouristAttractionImport {
 		 * CATEGORY
 		 * one or more categories? predefined limited categories, or unlimited categories?
 		 */
-		attraction.setCategory(parseCategory(object.get("categories").toString()));
+//		attraction.setCategory(parseCategory(object.get("categories").toString()));
 		
 		/**
 		 * POSTAL CODE
