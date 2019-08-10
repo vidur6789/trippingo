@@ -32,7 +32,7 @@ public class ImportDataUtility implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		if(importData) {
-//			attractionUtility.importData();	
+			attractionUtility.importData();	
 			promotionUtility.importData();
 		}
 	}

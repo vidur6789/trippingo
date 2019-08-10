@@ -2,7 +2,12 @@ package trippingo.service;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +30,8 @@ public class TouristAttractionController {
 	
 	@Autowired
 	private PromotionController promotionService;
+	
+	private static final Logger logger = LogManager.getLogger(PromotionController.class);
 	
 	@GetMapping("/{id}")
 	public TouristAttraction fetchAttraction(@PathVariable Long id,
@@ -63,4 +70,11 @@ public class TouristAttractionController {
 		attractionRepository.save(touristAttraction);
 		return touristAttraction;
 	}
+	
+	@ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+		logger.error("\nException in TouristAttractionController:", e);
+		return new ResponseEntity<String>(e.getMessage()+". Check application.log", HttpStatus.BAD_REQUEST);
+		
+    }
 }

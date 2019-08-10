@@ -6,16 +6,21 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import trippingo.data.PromotionImport;
 import trippingo.model.AttractionCategory;
 import trippingo.model.TouristAttraction;
 import trippingo.model.TravellerType;
@@ -29,6 +34,7 @@ import trippingo.utils.StringUtils;
 @RequestMapping(path="/recommendations")
 public class AttractionRecommendationController {
 
+	private static final Logger logger = LogManager.getLogger(AttractionRecommendationController.class);
 	
 	@Autowired 
 	private TouristAttractionRepository attractionRepository;
@@ -37,8 +43,7 @@ public class AttractionRecommendationController {
 	public Iterable<TouristAttraction> fetchRecommendations(@RequestParam(value="travellerType", required = false, defaultValue = "Friends") TravellerType travellerType,
 															@RequestParam(value="keywords", required = false) List<String> keywords,
 															@RequestParam(value="location", required = false) String location,
-															@RequestParam(value="count", required = false, defaultValue = "10") int resultCount,
-															@RequestParam(value="detailed", required = false, defaultValue = "false") boolean detailed) {
+															@RequestParam(value="count", required = false, defaultValue = "10") int resultCount) {
 		
 		Set<Long> attractionIds = new HashSet<Long>();
 		List<TouristAttraction> attractions;
@@ -66,8 +71,7 @@ public class AttractionRecommendationController {
 		//ORDER BY RANK & LOCATION
 		Collections.sort(attractions, getComparator(travellerType, location));
 		//REMOVE DETAILS
-		if(!detailed)
-			attractions.stream().forEach(CommonUtils::removeDetails);
+		attractions.stream().forEach(CommonUtils::removeDetails);
 		return attractions.subList(0, resultCount);
 	}
 
@@ -99,6 +103,12 @@ public class AttractionRecommendationController {
 	private int getProximityScore(String postalCode1, String postalCode2) {
 		return  Math.abs(Integer.parseInt(postalCode1.substring(0,2)) - Integer.parseInt(postalCode2.substring(0,2))); 
 	}
+	
+	@ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+		logger.error("\nException in AttractionRecommendationController", e);
+		return new ResponseEntity<String>(e.getMessage()+". Check application.log", HttpStatus.BAD_REQUEST);
+    }
 	
 	
 
