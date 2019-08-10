@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ import trippingo.model.TouristAttraction;
 import trippingo.model.TravellerType;
 import trippingo.repository.TouristAttractionRepository;
 import trippingo.utils.CommonUtils;
+import trippingo.utils.StringUtils;
 
 
 
@@ -34,6 +36,7 @@ public class AttractionRecommendationController {
 	@GetMapping
 	public Iterable<TouristAttraction> fetchRecommendations(@RequestParam(value="travellerType", required = false, defaultValue = "Friends") TravellerType travellerType,
 															@RequestParam(value="keywords", required = false) List<String> keywords,
+															@RequestParam(value="location", required = false) String location,
 															@RequestParam(value="count", required = false, defaultValue = "10") int resultCount,
 															@RequestParam(value="detailed", required = false, defaultValue = "false") boolean detailed) {
 		
@@ -60,28 +63,43 @@ public class AttractionRecommendationController {
 		}
 		
 		
-		//ORDER BY RANK
-		Collections.sort(attractions, getComparator(travellerType));
+		//ORDER BY RANK & LOCATION
+		Collections.sort(attractions, getComparator(travellerType, location));
 		//REMOVE DETAILS
 		if(!detailed)
 			attractions.stream().forEach(CommonUtils::removeDetails);
 		return attractions.subList(0, resultCount);
 	}
 
-	private Comparator<TouristAttraction> getComparator(TravellerType travellerType) {
+	private Comparator<TouristAttraction> getComparator(TravellerType travellerType, String postalCode) {
+		
 		switch(travellerType) {
 		case  Family:
-			return (a1, a2) -> a1.getAttractionRank().getFamilyRank() - a2.getAttractionRank().getFamilyRank();
+			return (a1, a2) -> a1.getAttractionRank().getFamilyRank() - a2.getAttractionRank().getFamilyRank() + getProximityScore(a1, a2, postalCode);
 		case  Business:
-			return (a1, a2) -> a1.getAttractionRank().getBusinessRank() - a2.getAttractionRank().getBusinessRank();
+			return (a1, a2) -> a1.getAttractionRank().getBusinessRank() - a2.getAttractionRank().getBusinessRank() + getProximityScore(a1, a2, postalCode);
 		case  Solo:
-			return (a1, a2) -> a1.getAttractionRank().getSoloRank() - a2.getAttractionRank().getSoloRank();
+			return (a1, a2) -> a1.getAttractionRank().getSoloRank() - a2.getAttractionRank().getSoloRank() + getProximityScore(a1, a2, postalCode);
 		case Couple:
-			return (a1, a2) -> a1.getAttractionRank().getCoupleRank() - a2.getAttractionRank().getCoupleRank();
+			return (a1, a2) -> a1.getAttractionRank().getCoupleRank() - a2.getAttractionRank().getCoupleRank() + getProximityScore(a1, a2, postalCode);
 		case  Friends:
 		default:
-			return (a1, a2) -> a1.getAttractionRank().getFriendsRank() - a2.getAttractionRank().getFriendsRank();
+			return (a1, a2) -> a1.getAttractionRank().getFriendsRank() - a2.getAttractionRank().getFriendsRank() + getProximityScore(a1, a2, postalCode);
 		}
 	}
+	
+	
+	private int getProximityScore(TouristAttraction a1, TouristAttraction a2, String location) {
+		if(StringUtils.isNull(location) || a1.getPostalCode() == null || a2.getPostalCode() == null)
+			return 0;
+		int score  = getProximityScore(a1.getPostalCode(), location) - getProximityScore(a2.getPostalCode(), location);
+		return score;
+	}
+	
+	private int getProximityScore(String postalCode1, String postalCode2) {
+		return  Math.abs(Integer.parseInt(postalCode1.substring(0,2)) - Integer.parseInt(postalCode2.substring(0,2))); 
+	}
+	
+	
 
 }
