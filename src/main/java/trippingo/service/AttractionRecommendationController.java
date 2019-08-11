@@ -43,7 +43,7 @@ public class AttractionRecommendationController {
 	public Iterable<TouristAttraction> fetchRecommendations(@RequestParam(value="travellerType", required = false, defaultValue = "Friends") TravellerType travellerType,
 															@RequestParam(value="keywords", required = false) List<String> keywords,
 															@RequestParam(value="location", required = false) String location,
-															@RequestParam(value="count", required = false, defaultValue = "10") int resultCount) {
+															@RequestParam(value="count", required = false, defaultValue = "5") int resultCount) {
 		
 		Set<Long> attractionIds = new HashSet<Long>();
 		List<TouristAttraction> attractions;
@@ -72,7 +72,7 @@ public class AttractionRecommendationController {
 		Collections.sort(attractions, getComparator(travellerType, location));
 		//REMOVE DETAILS
 		attractions.stream().forEach(CommonUtils::removeDetails);
-		return attractions.subList(0, resultCount);
+		return attractions.size() > resultCount? attractions.subList(0, resultCount) : attractions;
 	}
 
 	private Comparator<TouristAttraction> getComparator(TravellerType travellerType, String postalCode) {
