@@ -18,7 +18,9 @@ package trippingo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.optaplanner.core.api.solver.Solver;
@@ -69,11 +71,37 @@ public class TripSolver implements  CommandLineRunner {
 	}
 	
 	private void toDisplayString(TripPlanner solvedTripSolver) {
-		solvedTripSolver.getAttraction().stream().map(this::todisplayPlannedAttractionString).forEach(System.out::println);;
+		//all attractions
+		solvedTripSolver.getAttraction()
+						.stream()
+						.map(this::todisplayPlannedAttractionString)
+						.forEach(System.out::println);
+		
+		Map<Integer, List<PlanAttraction>> dayPlans = solvedTripSolver.getAttraction()
+						.stream()
+						.collect(Collectors.groupingBy(this::dataKey));
+		
+		//day plans
+		dayPlans.entrySet().stream().forEach(this::displayDayPlan);
+	}
+	
+	private void displayDayPlan(Map.Entry<Integer, List<PlanAttraction>> dayPlan) {
+		System.out.println("Day " + dayPlan.getKey() +" Plan:");
+		dayPlan.getValue()
+			   .stream()
+			   .sorted(Comparator.comparingInt(p -> p.getStartingTimeGrain().getGrainIndex()))
+			   .map(this::todisplayPlannedAttractionString)
+			   .forEach(System.out::println);
+	}
+	
+	private Integer dataKey(PlanAttraction attraction) {
+		return attraction.getStartingTimeGrain().getDay().getDayOfYear();
 	}
 	
 	private String todisplayPlannedAttractionString(PlanAttraction attraction) {
-		return "Time slot for " + attraction.getAttraction().getName() + ": " + attraction.getStartingTimeGrain().getGrainIndex();
+		double duration = attraction.getAttraction().getRecommendedDuration()!=null ? attraction.getAttraction().getDurationTimeGrains(): 0;
+		return "Time slot for " + attraction.getAttraction().getName() + ": " + attraction.getStartingTimeGrain().getGrainIndex()+
+				". Recommened Duration: " + duration;
 	}
 
 	private List<TimeGrain> generateTimeGrains() {
