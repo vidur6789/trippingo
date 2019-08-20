@@ -32,6 +32,9 @@ public class Range {
 	public String toString() {
 		return String.join("", this.from.toString(), "-", this.to.toString());
 	}
+	public double MeanRange() {
+		return (this.from +this.to) / 2;
+	}
 	
 	
 	

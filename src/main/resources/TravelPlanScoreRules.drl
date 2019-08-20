@@ -1,0 +1,42 @@
+import trippingo.optaplanner.resources.Day;
+import trippingo.optaplanner.resources.PlanAttraction;
+import trippingo.optaplanner.resources.TimeGrain;
+import trippingo.optaplanner.resources.TripPlanner;
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
+global HardSoftScoreHolder scoreHolder;
+
+// ############################################################################
+// Hard constraints
+// ############################################################################
+
+rule "withinOperatingHours"
+	when
+		$planAttraction : PlanAttraction ($StartingTimeGrain : startingTimeGrain.grainIndex < $OpeningTime : attraction.openingTimeGrains)
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, $StartingTimeGrain - $OpeningTime );
+		
+end
+
+rule "noDuplicateTimeslots"
+	when
+		$leftAssignment : PlanAttraction (startingTimeGrain != null)
+		$rightAssignment : PlanAttraction (startingTimeGrain != null, attraction.id <  $leftAssignment.getAttraction().getId())
+		
+	then
+        if ($leftAssignment.calculateOverlap($rightAssignment) != 0) {
+            scoreHolder.addHardConstraintMatch(kcontext, -1);
+        }	
+		
+		
+end
+
+rule "withinTravelHours"
+	when 
+		$planAttraction : PlanAttraction (startingTimeGrain!=null)
+	
+	then 
+	if ($planAttraction.travelHoursPenaltyScore()!=0){
+		scoreHolder.addSoftConstraintMatch(kcontext, -$planAttraction.travelHoursPenaltyScore());
+	}
+	
+end

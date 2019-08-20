@@ -80,6 +80,8 @@ public class TouristAttraction {
 	
 	private Boolean isOutdoor;
 	
+	
+	
 	@Transient
 	private List<Promotion> promotions;
 	
@@ -170,7 +172,21 @@ public class TouristAttraction {
 		this.promotions = promotions;
 	}
 	
+	public int getOpeningTimeGrains() {
+		if(openingTime == null )
+			return 0;
+		return ( getOpeningTime().getHour() * 60 + getOpeningTime().getMinute()) / 15;
+	}
 	
+	public int getClosingTimeGrains() {
+		if(closingTime == null )
+			return 95;
+		return ( getClosingTime().getHour() * 60 + getClosingTime().getMinute()) / 15;
+	}
 	
-	
+	public int getDurationTimeGrains() {
+		if(getRecommendedDuration() == null )
+			return 1;
+		return Double.valueOf(getRecommendedDuration().MeanRange()*4).intValue();
+	}
 }
