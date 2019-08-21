@@ -71,6 +71,27 @@ public class PlanAttraction {
 	
 	
 	
+	public int attractionDurationScore(PlanAttraction other) { //DONAL
+		if(startingTimeGrain == null || other.startingTimeGrain.getDay() == null) {
+			return 0;
+		}
+		int start = startingTimeGrain.getGrainIndex();
+	    int otherStart = other.startingTimeGrain.getGrainIndex();
+	    int duration = otherStart - start ; //- traveltime
+	    
+	    if (duration > getAttraction().getMaxDurationTimeGrains() || duration < getAttraction().getMinDurationTimeGrains()) {   	//Checks if visiting hours exceeds or below Max Min Durations
+	    	return Math.abs(getAttraction().getMinDurationTimeGrains() - duration) + Math.abs(duration - getAttraction().getMaxDurationTimeGrains() ) * 100;
+	    }
+	    
+	    else { //Penalize duration shorter than mean, Reward duration more than mean
+	    	return duration - getAttraction().getDurationTimeGrains();
+	    		    	
+	    }
+	    
+	    
+	}
+	
+
 	
 
 }

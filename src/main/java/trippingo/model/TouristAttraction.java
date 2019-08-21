@@ -189,4 +189,17 @@ public class TouristAttraction {
 			return 1;
 		return Double.valueOf(getRecommendedDuration().MeanRange()*4).intValue();
 	}
+	
+	public int getMaxDurationTimeGrains() {
+		if(getRecommendedDuration() == null )
+			return 1;
+		return Double.valueOf(getRecommendedDuration().getTo()).intValue();
+	}
+	
+	public int getMinDurationTimeGrains() {
+		if(getRecommendedDuration() == null )
+			return 1;
+		return Double.valueOf(getRecommendedDuration().getFrom()).intValue();
+	}
 }
+	
