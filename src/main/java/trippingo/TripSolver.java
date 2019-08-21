@@ -53,7 +53,7 @@ public class TripSolver implements  CommandLineRunner {
         Solver<TripPlanner> solver = solverFactory.buildSolver();
 
         TripPlanner unsolvedTripSolver = new TripPlanner ();
-        List<TouristAttraction> attractions = service.fetchAttractions(null, null).subList(0, 10);
+        List<TouristAttraction> attractions = service.fetchAttractions(null, null).subList(10, 18);
         
         List<PlanAttraction> planAttractions=  attractions.stream()
         		.map(this::mapToPlanAttraction)
@@ -80,7 +80,7 @@ public class TripSolver implements  CommandLineRunner {
 		Map<Integer, List<PlanAttraction>> dayPlans = solvedTripSolver.getAttraction()
 						.stream()
 						.collect(Collectors.groupingBy(this::dataKey));
-		
+		System.out.println("Hard: " + solvedTripSolver.getScore().getHardScore() + "Soft: "+ solvedTripSolver.getScore().getSoftScore());
 		//day plans
 		dayPlans.entrySet().stream().forEach(this::displayDayPlan);
 	}
@@ -99,7 +99,7 @@ public class TripSolver implements  CommandLineRunner {
 	}
 	
 	private String todisplayPlannedAttractionString(PlanAttraction attraction) {
-		double duration = attraction.getAttraction().getRecommendedDuration()!=null ? attraction.getAttraction().getDurationTimeGrains(): 0;
+		double duration = attraction.getAttraction().getDurationTimeGrains();//!=null ? attraction.getAttraction().getDurationTimeGrains(): 0;
 		return "Time slot for " + attraction.getAttraction().getName() + ": " + attraction.getStartingTimeGrain().getGrainIndex()+
 				". Recommened Duration: " + duration + "serialNo:" + attraction.getSerialNo();
 	}

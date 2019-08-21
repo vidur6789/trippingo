@@ -185,21 +185,21 @@ public class TouristAttraction {
 	}
 	
 	public int getDurationTimeGrains() {
-		if(getRecommendedDuration() == null )
-			return 1;
-		return Double.valueOf(getRecommendedDuration().MeanRange()*4).intValue();
+		return (this.getMaxDurationTimeGrains() + this.getMinDurationTimeGrains())/2;
 	}
 	
 	public int getMaxDurationTimeGrains() {
 		if(getRecommendedDuration() == null )
 			return 1;
-		return Double.valueOf(getRecommendedDuration().getTo()).intValue();
+		if(getRecommendedDuration().getTo() == -1 )
+			return Double.valueOf(getRecommendedDuration().getFrom()).intValue() +1 ;
+		return (Double.valueOf(getRecommendedDuration().getTo()).intValue())*4;
 	}
 	
 	public int getMinDurationTimeGrains() {
 		if(getRecommendedDuration() == null )
 			return 1;
-		return Double.valueOf(getRecommendedDuration().getFrom()).intValue();
+		return (Double.valueOf(getRecommendedDuration().getFrom()).intValue())*4;
 	}
 }
 	
