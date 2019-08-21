@@ -44,16 +44,24 @@ public class TravelDistanceImport {
 	            }
 	            else {
 	            	String rowHeader = elements[0];
-	            	for(int i =0; i < elements.length; i++) {
+	            	for(int i =1; i < elements.length; i++) { // start from 1, 0 = rowHeader
+//	            		if(rowHeader == columns[i])//ignore when destination same as source
+//	            			continue;
+	            		try {
 	            		TravelDistance distance = parseDistance(rowHeader,  columns[i], elements[i]);
 	            		distanceRepository.save(distance);
+	            		}
+	            		catch(Exception e) {
+	            			logger.error("\n" + rowHeader + "," +columns[i]+","+ elements[i], e);
+	            		}
 	            	}
 	            }
 	            lineNum++;
 	        }
+	        logger.info("Travel Distance Import Completed");
 	
 	    } catch (Exception e) {
-	        logger.error(e);
+	    	logger.error("\nException for attractionName:" , e);
 	    }
 	}
 

@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import trippingo.model.TouristAttraction;
+import trippingo.model.TravelDistance;
 import trippingo.repository.TouristAttractionRepository;
+import trippingo.repository.TravelDistanceRepository;
 import trippingo.utils.CommonUtils;
 import trippingo.utils.StringUtils;
 
@@ -27,6 +29,9 @@ public class TouristAttractionController {
 	
 	@Autowired 
 	private TouristAttractionRepository attractionRepository;
+	
+	@Autowired 
+	private TravelDistanceRepository distanceRepository;
 	
 	@Autowired
 	private PromotionController promotionService;
@@ -46,6 +51,13 @@ public class TouristAttractionController {
 			
 		return attraction;
 		
+	}
+	
+	@GetMapping("/{id}/distance/{to}")
+	public TravelDistance fetchDistanceBetween(@PathVariable Long id,
+										  @PathVariable Long to) {
+		
+		return distanceRepository.fetchDistanceBetween(id, to);
 	}
 	
 	@GetMapping
