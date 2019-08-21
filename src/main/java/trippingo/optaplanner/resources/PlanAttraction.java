@@ -10,6 +10,7 @@ public class PlanAttraction {
 	
 	private TouristAttraction attraction;
 	private TimeGrain startingTimeGrain;
+	private int serialNo;
 	
 	@PlanningVariable(valueRangeProviderRefs = {"timeGrainRange"})
 	public TimeGrain getStartingTimeGrain() {
@@ -58,6 +59,17 @@ public class PlanAttraction {
 	    }
 	    return (int) Math.pow((end - startingTimeGrain.getDay().getLastTravelSlot() +  startingTimeGrain.getDay().getFirstTravelSlot() - start), 10);
 	}
+
+	public void setSerialNo(int i) {
+		this.serialNo = i;
+		
+	}
+
+	public int getSerialNo() {
+		return serialNo;
+	}
+	
+	
 	
 	public int attractionDurationScore(PlanAttraction other) { //DONAL
 		if(startingTimeGrain == null || other.startingTimeGrain.getDay() == null) {

@@ -44,6 +44,8 @@ rule "withinTravelHours"
 end
 
 
+
+
 rule "travelTimePenalty"
 	when
 	
@@ -61,5 +63,9 @@ rule "attractionDurationBalancing"
 		(scoreHolder.addSoftConstraintMatch(kcontext, $planAttraction.attractionDurationScore());
 	
 end
+	
+
+
+	
 	
 
