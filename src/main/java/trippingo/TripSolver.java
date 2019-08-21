@@ -101,7 +101,7 @@ public class TripSolver implements  CommandLineRunner {
 	private String todisplayPlannedAttractionString(PlanAttraction attraction) {
 		double duration = attraction.getAttraction().getRecommendedDuration()!=null ? attraction.getAttraction().getDurationTimeGrains(): 0;
 		return "Time slot for " + attraction.getAttraction().getName() + ": " + attraction.getStartingTimeGrain().getGrainIndex()+
-				". Recommened Duration: " + duration;
+				". Recommened Duration: " + duration + "serialNo:" + attraction.getSerialNo();
 	}
 
 	private List<TimeGrain> generateTimeGrains() {
