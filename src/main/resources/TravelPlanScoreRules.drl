@@ -41,6 +41,8 @@ rule "withinTravelHours"
 	
 end
 
+/**
+
 
 rule "travelTimePenalty"
 	when
@@ -70,3 +72,6 @@ rule "attractionDurationOffLimits"
 	
 	if ( attractionVisitDuration > MaxDuration || attractionVisitDuration < MeanDuration
 	then (scoreHolder.addSoftConstraintMatch(kcontext, $planAttraction.DurationDiffernce * 100());
+	
+	**/
+	

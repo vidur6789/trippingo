@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import trippingo.data.PromotionImport;
 import trippingo.data.TouristAttractionImportWithRank;
+import trippingo.data.TravelDistanceImport;
 
 @Component
 public class ImportDataUtility implements CommandLineRunner {
@@ -22,6 +23,9 @@ public class ImportDataUtility implements CommandLineRunner {
 	@Autowired
 	private PromotionImport promotionUtility;
 	
+	@Autowired
+	private TravelDistanceImport distanceUtility;
+	
 	@Value("${trippingo.importdata}")
 	private boolean importData;
 
@@ -32,8 +36,9 @@ public class ImportDataUtility implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		if(importData) {
-			attractionUtility.importData();	
+//			attractionUtility.importData();	
 //			promotionUtility.importData();
+			distanceUtility.importData();
 		}
 	}
 	

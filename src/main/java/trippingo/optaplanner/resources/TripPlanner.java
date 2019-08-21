@@ -35,6 +35,10 @@ public class TripPlanner {
 	}
 	@PlanningEntityCollectionProperty
 	public List<PlanAttraction> getAttraction() {
+		int i =0;
+		for (PlanAttraction attraction: attraction) {
+			attraction.setSerialNo(i++);
+		}
 		return attraction;
 	}
 	public void setAttraction(List<PlanAttraction> attraction) {
