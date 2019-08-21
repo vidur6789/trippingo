@@ -1,6 +1,9 @@
 package trippingo.optaplanner.resources;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
@@ -35,10 +38,7 @@ public class TripPlanner {
 	}
 	@PlanningEntityCollectionProperty
 	public List<PlanAttraction> getAttraction() {
-		int i =0;
-		for (PlanAttraction attraction: attraction) {
-			attraction.setSerialNo(i++);
-		}
+		assignSerialNo();
 		return attraction;
 	}
 	public void setAttraction(List<PlanAttraction> attraction) {
@@ -52,6 +52,33 @@ public class TripPlanner {
 	
 	public void setScore(HardSoftScore score) {
 		this.score = score;
+	}
+	
+	public void assignSerialNo() {
+		Map<Integer, List<PlanAttraction>> dayPlans = attraction.stream().collect(Collectors.groupingBy(this::dataKey));
+		
+		int dayIndex = 0;
+		for (Map.Entry<Integer, List<PlanAttraction>> dayPlan: dayPlans.entrySet()) {
+			assignSerialNo(dayPlan.getValue(), dayPlan.getKey()*100);
+			dayIndex++;
+//			System.out.println("Day: " + dayPlan.getKey() + "No. of attractions: " + dayPlan.getValue().size());
+		}
+	}
+	
+	private Integer dataKey(PlanAttraction attraction) {
+		if(attraction.getStartingTimeGrain() == null || attraction.getStartingTimeGrain().getDay() == null)
+			return -1;
+		return attraction.getStartingTimeGrain().getDay().getDayOfYear();
+	}
+	
+	
+	private void assignSerialNo(List<PlanAttraction> attractions, int initialSerialNo) {
+		int i = initialSerialNo;
+		attractions.sort(Comparator.comparingInt(p -> p.getStartingTimeGrain().getGrainIndex()));
+		for (PlanAttraction attraction: attractions) {
+			attraction.setSerialNo(i++);
+//			System.out.println("Assigned:" + i);
+		}
 	}
 	
 	
