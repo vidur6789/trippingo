@@ -13,7 +13,7 @@
 
   </exhaustiveSearch>-->
 <localSearch>  <termination>
-    <secondsSpentLimit>10</secondsSpentLimit>
+    <secondsSpentLimit>100</secondsSpentLimit>
   </termination></localSearch>
   <!-- Optimization algorithms configuration -->
 

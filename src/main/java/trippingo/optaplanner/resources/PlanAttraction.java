@@ -2,21 +2,17 @@ package trippingo.optaplanner.resources;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import trippingo.model.TouristAttraction;
 import trippingo.service.TouristAttractionController;
 
 @PlanningEntity
-@Component
 public class PlanAttraction {
 	
 	private TouristAttraction attraction;
 	private TimeGrain startingTimeGrain;
 	private int serialNo;
 	
-	@Autowired
 	private TouristAttractionController service;
 	
 	@PlanningVariable(valueRangeProviderRefs = {"timeGrainRange"})
@@ -117,6 +113,16 @@ public class PlanAttraction {
 	    
 	    
 	}
+
+	public TouristAttractionController getService() {
+		return service;
+	}
+
+	public void setService(TouristAttractionController service) {
+		this.service = service;
+	}
+	
+	
 	
 
 	

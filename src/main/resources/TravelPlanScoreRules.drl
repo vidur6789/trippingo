@@ -9,11 +9,19 @@ global HardSoftScoreHolder scoreHolder;
 // Hard constraints
 // ############################################################################
 
-rule "withinOperatingHours"
+rule "checkOpeningHours"
 	when
 		$planAttraction : PlanAttraction ($StartingTimeGrain : startingTimeGrain.grainIndex < $OpeningTime : attraction.openingTimeGrains)
 	then
-		scoreHolder.addHardConstraintMatch(kcontext, -1);//$StartingTimeGrain - $OpeningTime );
+		scoreHolder.addHardConstraintMatch(kcontext, $StartingTimeGrain - $OpeningTime);
+		
+end
+
+rule "checkClosingHours"
+	when
+		$planAttraction : PlanAttraction ($endTimeGrain: startingTimeGrain.grainIndex + attraction.getMaxDurationTimeGrains() < $closingTime: attraction.getClosingTimeGrains())
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, $endTimeGrain-$closingTime);//$StartingTimeGrain - $OpeningTime );
 		
 end
 
@@ -36,7 +44,7 @@ rule "withinTravelHours"
 	
 	then 
 	if ($planAttraction.travelHoursPenaltyScore()!=0){
-		scoreHolder.addHardConstraintMatch(kcontext, -1);//$planAttraction.travelHoursPenaltyScore());
+		scoreHolder.addHardConstraintMatch(kcontext, -100);//$planAttraction.travelHoursPenaltyScore());
 	}
 	
 end

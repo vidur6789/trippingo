@@ -53,7 +53,7 @@ public class TripSolver implements  CommandLineRunner {
         Solver<TripPlanner> solver = solverFactory.buildSolver();
 
         TripPlanner unsolvedTripSolver = new TripPlanner ();
-        List<TouristAttraction> attractions = service.fetchAttractions(null, null).subList(10, 18);
+        List<TouristAttraction> attractions = service.fetchAttractions(null, null).subList(0, 15);
         
         List<PlanAttraction> planAttractions=  attractions.stream()
         		.map(this::mapToPlanAttraction)
@@ -110,9 +110,15 @@ public class TripSolver implements  CommandLineRunner {
 		day1.setDayOfYear(1);
 		Day day2 = new Day();
 		day2.setDayOfYear(2);
-		Day[] days = new Day[] {day1, day2};
+		List<Day> days  = new ArrayList<Day>();
 		
-		Arrays.stream(days).forEach(d -> {d.setFirstTravelSlot(32); d.setLastTravelSlot(80);});
+		for(int i=1; i < 6; i++) {
+			Day day = new Day();
+			day1.setDayOfYear(i);
+			days.add(day);
+		}
+		
+		days.stream().forEach(d -> {d.setFirstTravelSlot(32); d.setLastTravelSlot(80);});
 		List <TimeGrain> timeGrainSlots = new ArrayList<TimeGrain>();
 		for(Day day: days) {
 			for(int i=0; i <24*4;i++) {
@@ -131,6 +137,7 @@ public class TripSolver implements  CommandLineRunner {
 		planAttr.setAttraction(attraction);
 		planAttr.setStartingTimeGrain(new TimeGrain());
 		planAttr.getStartingTimeGrain().setGrainIndex(0);
+		planAttr.setService(service);
 		return planAttr;
 		
 	}
