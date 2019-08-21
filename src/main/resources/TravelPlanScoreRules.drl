@@ -25,6 +25,8 @@ rule "noDuplicateTimeslots"
 	then
         if ($leftAssignment.calculateOverlap($rightAssignment) != 0) {
             scoreHolder.addHardConstraintMatch(kcontext, -1);
+        else 
+ 
         }	
 		
 		
