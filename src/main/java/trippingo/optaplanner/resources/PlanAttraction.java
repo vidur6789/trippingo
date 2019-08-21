@@ -2,15 +2,22 @@ package trippingo.optaplanner.resources;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import trippingo.model.TouristAttraction;
+import trippingo.service.TouristAttractionController;
 
 @PlanningEntity
+@Component
 public class PlanAttraction {
 	
 	private TouristAttraction attraction;
 	private TimeGrain startingTimeGrain;
 	private int serialNo;
+	
+	@Autowired
+	private TouristAttractionController service;
 	
 	@PlanningVariable(valueRangeProviderRefs = {"timeGrainRange"})
 	public TimeGrain getStartingTimeGrain() {
@@ -80,7 +87,9 @@ public class PlanAttraction {
 		
 		int start = startingTimeGrain.getGrainIndex();
 	    int otherStart = other.startingTimeGrain.getGrainIndex();
-	    int duration = otherStart - start ; //- traveltime
+	    double travelGrains  = service.fetchDistanceBetween(getAttraction().getId(), other.getAttraction().getId()).getValue()/15;
+	    int traveltime = Double.valueOf(Math.ceil(travelGrains)).intValue();
+		int duration = otherStart - start - traveltime;
 	    int minTimePenalty;
 	    int maxTimePenalty;
 	    
@@ -98,7 +107,7 @@ public class PlanAttraction {
 	    		maxTimePenalty = 0;
 	    	}
 	    	
-	    	return (minTimePenalty + maxTimePenalty) * 100;
+	    	return (minTimePenalty + maxTimePenalty) * 100 ;
 	    }
 	    
 	    else { //Penalize duration shorter than mean, Reward duration more than mean
