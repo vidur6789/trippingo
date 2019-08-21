@@ -36,7 +36,37 @@ rule "withinTravelHours"
 	
 	then 
 	if ($planAttraction.travelHoursPenaltyScore()!=0){
-		scoreHolder.addSoftConstraintMatch(kcontext, -$planAttraction.travelHoursPenaltyScore());
+		scoreHolder.addHardConstraintMatch(kcontext, -$planAttraction.travelHoursPenaltyScore());
 	}
 	
 end
+
+
+rule "travelTimePenalty"
+	when
+	
+	then (scoreHolder.addSoftConstraintMatch(kcontext, -$planAttraction.travelTimePenaltyScore());
+
+	
+end
+
+rule "freeTimePenalty"
+	when
+	
+	then (scoreHolder.addSoftConstraintMatch(kcontext, -$planAttraction.FreeTimePenaltyScore()*2);
+	
+end
+
+// This rule can be a penalty or reward, reward > mean, penalty < mean
+rule "attractionDurationBalancing"
+	when
+	
+	then (scoreHolder.addSoftConstraintMatch(kcontext, $planAttraction.DurationScore());
+	
+end
+	
+rule "attractionDurationOffLimits"
+	when
+	
+	if ( attractionVisitDuration > MaxDuration || attractionVisitDuration < MeanDuration
+	then (scoreHolder.addSoftConstraintMatch(kcontext, $planAttraction.DurationDiffernce * 100());
