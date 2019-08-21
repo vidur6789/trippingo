@@ -47,6 +47,8 @@ public class TripPlanner {
 	
 	@PlanningScore
 	public HardSoftScore getScore() {
+		if (score != null)
+		System.out.println("Hard: " + score.getHardScore() + "Soft: "+ score.getSoftScore());
 		return score;
 	}
 	

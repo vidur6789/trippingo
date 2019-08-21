@@ -52,10 +52,12 @@ public class PlanAttraction {
 			return 0;
 	    int start = startingTimeGrain.getGrainIndex();
 	    int end = start + getAttraction().getDurationTimeGrains();
-	    if (end < startingTimeGrain.getDay().getLastTravelSlot()) {
+	    if (start < 30 ) {
+	    	int x = 1;
+	    }
+	    if (end < startingTimeGrain.getDay().getLastTravelSlot() && start > startingTimeGrain.getDay().getFirstTravelSlot()) {
 	        return 0;
-	    } else if (start > startingTimeGrain.getDay().getFirstTravelSlot()) {
-	        return 0;
+
 	    }
 	    return (int) Math.pow((end - startingTimeGrain.getDay().getLastTravelSlot() +  startingTimeGrain.getDay().getFirstTravelSlot() - start), 10);
 	}
@@ -75,12 +77,28 @@ public class PlanAttraction {
 		if(startingTimeGrain == null || other.startingTimeGrain.getDay() == null) {
 			return 0;
 		}
+		
 		int start = startingTimeGrain.getGrainIndex();
 	    int otherStart = other.startingTimeGrain.getGrainIndex();
 	    int duration = otherStart - start ; //- traveltime
+	    int minTimePenalty;
+	    int maxTimePenalty;
 	    
 	    if (duration > getAttraction().getMaxDurationTimeGrains() || duration < getAttraction().getMinDurationTimeGrains()) {   	//Checks if visiting hours exceeds or below Max Min Durations
-	    	return Math.abs(getAttraction().getMinDurationTimeGrains() - duration) + Math.abs(duration - getAttraction().getMaxDurationTimeGrains() ) * 100;
+	    	if  (duration - getAttraction().getMinDurationTimeGrains() < 0){
+	    		minTimePenalty =  duration - getAttraction().getMinDurationTimeGrains();
+	    	}
+	    	else {
+	    		minTimePenalty = 0;
+	    	}
+	    	if  (getAttraction().getMaxDurationTimeGrains() - duration < 0){
+	    		maxTimePenalty =  getAttraction().getMaxDurationTimeGrains() - duration;
+	    	}
+	    	else {
+	    		maxTimePenalty = 0;
+	    	}
+	    	
+	    	return (minTimePenalty + maxTimePenalty) * 100;
 	    }
 	    
 	    else { //Penalize duration shorter than mean, Reward duration more than mean

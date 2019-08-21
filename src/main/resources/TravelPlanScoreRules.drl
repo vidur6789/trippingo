@@ -13,7 +13,7 @@ rule "withinOperatingHours"
 	when
 		$planAttraction : PlanAttraction ($StartingTimeGrain : startingTimeGrain.grainIndex < $OpeningTime : attraction.openingTimeGrains)
 	then
-		scoreHolder.addHardConstraintMatch(kcontext, $StartingTimeGrain - $OpeningTime );
+		scoreHolder.addHardConstraintMatch(kcontext, -1);//$StartingTimeGrain - $OpeningTime );
 		
 end
 
@@ -25,8 +25,6 @@ rule "noDuplicateTimeslots"
 	then
         if ($leftAssignment.calculateOverlap($rightAssignment) != 0) {
             scoreHolder.addHardConstraintMatch(kcontext, -1);
-        else 
- 
         }	
 		
 		
@@ -38,14 +36,14 @@ rule "withinTravelHours"
 	
 	then 
 	if ($planAttraction.travelHoursPenaltyScore()!=0){
-		scoreHolder.addHardConstraintMatch(kcontext, -$planAttraction.travelHoursPenaltyScore());
+		scoreHolder.addHardConstraintMatch(kcontext, -1);//$planAttraction.travelHoursPenaltyScore());
 	}
 	
 end
 
 
 
-
+/**
 
 rule "travelTimePenalty"
 	when
@@ -54,14 +52,15 @@ rule "travelTimePenalty"
 
 	
 end
-
+**/
 
 // This rule can be a penalty or reward, reward > mean, penalty < mean
 rule "attractionDurationBalancing"
 	when
-		$planAttraction : PlanAttraction ( )
+		$leftAssignment : PlanAttraction ($leftSerial : serialNo > 0)
+		$rightAssignment : PlanAttraction (serialNo == $leftSerial + 1)
 	then 
-		(scoreHolder.addSoftConstraintMatch(kcontext, $planAttraction.attractionDurationScore());
+		scoreHolder.addSoftConstraintMatch(kcontext, $leftAssignment.attractionDurationScore($rightAssignment));
 	
 end
 	
