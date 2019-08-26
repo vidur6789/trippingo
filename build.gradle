@@ -51,7 +51,3 @@ application {
     // Define the main class for the application
     mainClassName = 'trippingo.TrippingoApp'
 }
-
-bootJar {
-    mainClassName = 'trippingo.TrippingoApp'
-}
