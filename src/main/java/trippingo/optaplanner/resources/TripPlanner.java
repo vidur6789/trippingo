@@ -83,6 +83,31 @@ public class TripPlanner {
 		}
 	}
 	
+	public String toString() {
+		//all attractions
+		String allAttractionString = this.getAttraction()
+						.stream()
+						.map(PlanAttraction::toString)
+						.collect(Collectors.joining("\n"));
+		
+		Map<Integer, List<PlanAttraction>> dayPlans = this.getAttraction()
+						.stream()
+						.collect(Collectors.groupingBy(this::dataKey));
+		String scoreString = "Hard: " + this.getScore().getHardScore() + "Soft: "+ this.getScore().getSoftScore();
+		//day plans
+		String dayPlansString = dayPlans.entrySet().stream().map(this::toDayPlanString).collect(Collectors.joining("\n"));
+		return allAttractionString.concat("\n").concat(scoreString).concat(dayPlansString);
+	}
+	
+	private String toDayPlanString(Map.Entry<Integer, List<PlanAttraction>> dayPlan) {
+		String toString = "Day " + dayPlan.getKey() +" Plan:\n";
+		String attractions = dayPlan.getValue()
+			   .stream()
+			   .sorted(Comparator.comparingInt(p -> p.getStartingTimeGrain().getGrainIndex()))
+			   .map(PlanAttraction::toString).collect(Collectors.joining("\n"));
+		return toString.concat(attractions);
+	}
+	
 	
 	
 }

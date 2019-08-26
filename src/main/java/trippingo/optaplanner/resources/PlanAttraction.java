@@ -122,6 +122,12 @@ public class PlanAttraction {
 		this.service = service;
 	}
 	
+	public String toString() {
+		double duration = attraction.getDurationTimeGrains();
+		return "Time slot for " + attraction.getName() + ": " + getStartingTimeGrain().getGrainIndex()+
+				". Recommened Duration: " + duration + "serialNo:" + getSerialNo();
+	}
+	
 	
 	
 

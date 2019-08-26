@@ -17,7 +17,6 @@
 package trippingo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +29,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import trippingo.model.TouristAttraction;
+import trippingo.model.TravellerPreferences;
 import trippingo.optaplanner.resources.Day;
 import trippingo.optaplanner.resources.PlanAttraction;
 import trippingo.optaplanner.resources.TimeGrain;
@@ -45,76 +45,29 @@ public class TripSolver implements  CommandLineRunner {
 	@Autowired
 	private TouristAttractionController service;
 	
-	private void solve() {
-		
+	
+	public TripPlanner optimizeItinerary(List<TouristAttraction> attractions, TravellerPreferences travellerPreferences) {
 		 // Build the Solver
-        SolverFactory<TripPlanner> solverFactory = SolverFactory.createFromXmlResource(
-                "OptaplannerConfig.xml");
+        SolverFactory<TripPlanner> solverFactory = SolverFactory.createFromXmlResource("OptaplannerConfig.xml");
         Solver<TripPlanner> solver = solverFactory.buildSolver();
-
         TripPlanner unsolvedTripSolver = new TripPlanner ();
-        List<TouristAttraction> attractions = service.fetchAttractions(null, null).subList(0, 15);
-        
         List<PlanAttraction> planAttractions=  attractions.stream()
         		.map(this::mapToPlanAttraction)
         		.collect(Collectors.toList());
 		unsolvedTripSolver.setAttraction(planAttractions);
-		
-		unsolvedTripSolver.setTimeGrainSlots(generateTimeGrains());
-        // Solve the problem
-        
+		unsolvedTripSolver.setTimeGrainSlots(generateTimeGrains(4, 32, 80));
+
+		// Solve the problem
 		TripPlanner solvedTripSolver = solver.solve(unsolvedTripSolver);
-
-        // Display the result
-        toDisplayString(solvedTripSolver);
-		
+		return solvedTripSolver;
 	}
 	
-	private void toDisplayString(TripPlanner solvedTripSolver) {
-		//all attractions
-		solvedTripSolver.getAttraction()
-						.stream()
-						.map(this::todisplayPlannedAttractionString)
-						.forEach(System.out::println);
-		
-		Map<Integer, List<PlanAttraction>> dayPlans = solvedTripSolver.getAttraction()
-						.stream()
-						.collect(Collectors.groupingBy(this::dataKey));
-		System.out.println("Hard: " + solvedTripSolver.getScore().getHardScore() + "Soft: "+ solvedTripSolver.getScore().getSoftScore());
-		//day plans
-		dayPlans.entrySet().stream().forEach(this::displayDayPlan);
-	}
 	
-	private void displayDayPlan(Map.Entry<Integer, List<PlanAttraction>> dayPlan) {
-		System.out.println("Day " + dayPlan.getKey() +" Plan:");
-		dayPlan.getValue()
-			   .stream()
-			   .sorted(Comparator.comparingInt(p -> p.getStartingTimeGrain().getGrainIndex()))
-			   .map(this::todisplayPlannedAttractionString)
-			   .forEach(System.out::println);
-	}
-	
-	private Integer dataKey(PlanAttraction attraction) {
-		return attraction.getStartingTimeGrain().getDay().getDayOfYear();
-	}
-	
-	private String todisplayPlannedAttractionString(PlanAttraction attraction) {
-		double duration = attraction.getAttraction().getDurationTimeGrains();//!=null ? attraction.getAttraction().getDurationTimeGrains(): 0;
-		return "Time slot for " + attraction.getAttraction().getName() + ": " + attraction.getStartingTimeGrain().getGrainIndex()+
-				". Recommened Duration: " + duration + "serialNo:" + attraction.getSerialNo();
-	}
-
-	private List<TimeGrain> generateTimeGrains() {
-		
-		Day day1 = new Day();
-		day1.setDayOfYear(1);
-		Day day2 = new Day();
-		day2.setDayOfYear(2);
+	private List<TimeGrain> generateTimeGrains(int noOfDays, int startTimeSlot, int lastTravelSlot) {
 		List<Day> days  = new ArrayList<Day>();
-		
 		for(int i=1; i < 6; i++) {
 			Day day = new Day();
-			day1.setDayOfYear(i);
+			day.setDayOfYear(i);
 			days.add(day);
 		}
 		
@@ -127,11 +80,11 @@ public class TripSolver implements  CommandLineRunner {
 				timeGrain.setGrainIndex(i);
 				timeGrainSlots.add(timeGrain);
 			}
-			
 		}
 		return timeGrainSlots;	
 	}
 
+	
 	private PlanAttraction mapToPlanAttraction(TouristAttraction attraction) {
 		PlanAttraction  planAttr = new PlanAttraction();
 		planAttr.setAttraction(attraction);
@@ -142,9 +95,13 @@ public class TripSolver implements  CommandLineRunner {
 		
 	}
 
+	
 	@Override
 	public void run(String... args) throws Exception {
-		solve();
+		List<TouristAttraction> attractions = service.fetchAttractions(null, null).subList(0, 15);
+		TravellerPreferences preferences = new TravellerPreferences();
+		TripPlanner solvedTripPlanner = optimizeItinerary(attractions, preferences);
+		System.out.println(solvedTripPlanner.toString());
 	}
 
 
