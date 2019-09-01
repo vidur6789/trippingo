@@ -90,12 +90,9 @@ public class TripPlanner {
 						.map(PlanAttraction::toString)
 						.collect(Collectors.joining("\n"));
 		
-		Map<Integer, List<PlanAttraction>> dayPlans = this.getAttraction()
-						.stream()
-						.collect(Collectors.groupingBy(this::dataKey));
 		String scoreString = "Hard: " + this.getScore().getHardScore() + "Soft: "+ this.getScore().getSoftScore();
 		//day plans
-		String dayPlansString = dayPlans.entrySet().stream().map(this::toDayPlanString).collect(Collectors.joining("\n"));
+		String dayPlansString = getDayPlans().entrySet().stream().map(this::toDayPlanString).collect(Collectors.joining("\n"));
 		return allAttractionString.concat("\n").concat(scoreString).concat(dayPlansString);
 	}
 	
@@ -106,6 +103,13 @@ public class TripPlanner {
 			   .sorted(Comparator.comparingInt(p -> p.getStartingTimeGrain().getGrainIndex()))
 			   .map(PlanAttraction::toString).collect(Collectors.joining("\n"));
 		return toString.concat(attractions);
+	}
+	
+	
+	public Map<Integer, List<PlanAttraction>> getDayPlans(){
+		 return this.getAttraction()
+				.stream()
+				.collect(Collectors.groupingBy(this::dataKey));
 	}
 	
 	

@@ -98,10 +98,10 @@ public class TripSolver implements  CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		List<TouristAttraction> attractions = service.fetchAttractions(null, null).subList(0, 15);
-		TravellerPreferences preferences = new TravellerPreferences();
-		TripPlanner solvedTripPlanner = optimizeItinerary(attractions, preferences);
-		System.out.println(solvedTripPlanner.toString());
+//		List<TouristAttraction> attractions = service.fetchAttractions(null, null).subList(0, 15);
+//		TravellerPreferences preferences = new TravellerPreferences();
+//		TripPlanner solvedTripPlanner = optimizeItinerary(attractions, preferences);
+//		System.out.println(solvedTripPlanner.toString());
 	}
 
 

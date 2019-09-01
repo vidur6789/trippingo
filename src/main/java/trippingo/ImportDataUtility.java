@@ -36,8 +36,8 @@ public class ImportDataUtility implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		if(importData) {
-//			attractionUtility.importData();	
-//			promotionUtility.importData();
+			attractionUtility.importData();	
+			promotionUtility.importData();
 			distanceUtility.importData();
 		}
 	}

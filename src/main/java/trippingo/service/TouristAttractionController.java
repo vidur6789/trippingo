@@ -1,6 +1,7 @@
 package trippingo.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,11 +47,15 @@ public class TouristAttractionController {
 		if(!detailed)
 			CommonUtils.removeDetails(attraction);
 		else {
-			attraction.setPromotions(promotionService.fetchPromotionsById(attraction.getId()));
+			attraction.setPromotions(promotionService.fetchPromotions(attraction.getId()));
 		}
 			
 		return attraction;
 		
+	}
+	
+	public List<TouristAttraction> fetchAttractionsByIds(Set<Long> ids){
+		return (List<TouristAttraction>) attractionRepository.findAllById(ids);
 	}
 	
 	@GetMapping("/{id}/distance/{to}")
