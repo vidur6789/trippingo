@@ -32,7 +32,6 @@ public class TimeGrain {
     private int grainIndex; // unique
 
     private Day day;
-    private int startTimeGrain;
 
     public int getGrainIndex() {
         return grainIndex;
@@ -55,38 +54,14 @@ public class TimeGrain {
     }
 
     public LocalTime getTime() {
-        return LocalTime.of(startTimeGrain / 60, startTimeGrain % 60);
+        return LocalTime.of(grainIndex / 4, (grainIndex % 4)*15);
     }
 
     public LocalDateTime getDateTime() {
         return LocalDateTime.of(getDate(), getTime());
     }
     
-    
-
-    public int getStartTimeGrain() {
-		return startTimeGrain;
-	}
-
-	public void setStartTimeGrain(int startTimeGrain) {
-		this.startTimeGrain = startTimeGrain;
-	}
 
 
-	public String getTimeString() {
-        int hourOfDay = startTimeGrain / 60;
-        int minuteOfHour = startTimeGrain % 60;
-        return (hourOfDay < 10 ? "0" : "") + hourOfDay
-                + ":" + (minuteOfHour < 10 ? "0" : "") + minuteOfHour;
-    }
 
-    public String getDateTimeString() {
-        return day.getDateString() + " " + getTimeString();
-    }
-
-
-    @Override
-    public String toString() {
-        return grainIndex + "(" + getDateTimeString() + ")";
-    }
 }

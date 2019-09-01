@@ -1,15 +1,19 @@
 package trippingo.model;
 
+import java.util.Set;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 
 
@@ -35,9 +39,14 @@ public class TravelPlan {
     @JoinColumn(name = "itinerary_id", referencedColumnName = "id")
 	private Itinerary itinerary;
 	
-	private String selectedAttractionIds;
+    @ElementCollection
+	@JoinTable(name = "travel_plan_attractions", joinColumns = @JoinColumn(name = "travel_plan_id"))
+	private Set<Long> selectedAttractionIds;
 	
-	private String selectedPromotionIds;
+    
+    @ElementCollection
+	@JoinTable(name = "travel_plan_promotions", joinColumns = @JoinColumn(name = "travel_plan_id"))
+	private Set<Long> selectedPromotionIds;
 	
 	public Long getId() {
 		return id;
@@ -63,18 +72,22 @@ public class TravelPlan {
 	public void setItinerary(Itinerary itinerary) {
 		this.itinerary = itinerary;
 	}
-	public String getSelectedAttractionIds() {
+	public Set<Long> getSelectedAttractionIds() {
 		return selectedAttractionIds;
 	}
-	public void setSelectedAttractionIds(String selectedAttractionIds) {
+	public void setSelectedAttractionIds(Set<Long> selectedAttractionIds) {
 		this.selectedAttractionIds = selectedAttractionIds;
 	}
-	public String getSelectedPromotionIds() {
+	public Set<Long> getSelectedPromotionIds() {
 		return selectedPromotionIds;
 	}
-	public void setSelectedPromotionIds(String selectedPromotionIds) {
+	public void setSelectedPromotionIds(Set<Long> selectedPromotionIds) {
 		this.selectedPromotionIds = selectedPromotionIds;
 	}
+	
+	
+	
+	
 	
 	
 	
