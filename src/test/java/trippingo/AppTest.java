@@ -10,7 +10,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.LongStream;
 
 import trippingo.datatype.Range;
 import trippingo.utils.StringUtils;
@@ -21,6 +23,9 @@ public class AppTest {
         System.out.println(parseDate("December 2018"));
         System.out.println("1 to 2 hour".replaceFirst("<", "0 to "));
         System.out.println("99000+".replaceFirst("\\+", ""));
+        
+        
+        LongStream.rangeClosed(1,11).collect(HashSet::new, HashSet::add, (o1,o2) -> o1.addAll(o2)).forEach(System.out::println);
     }
     
     private static LocalTime parseTime(String time) {

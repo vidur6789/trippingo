@@ -4,6 +4,7 @@ import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import trippingo.model.TouristAttraction;
+import trippingo.model.TravelDistance;
 import trippingo.service.TouristAttractionController;
 
 @PlanningEntity
@@ -83,7 +84,8 @@ public class PlanAttraction {
 		
 		int start = startingTimeGrain.getGrainIndex();
 	    int otherStart = other.startingTimeGrain.getGrainIndex();
-	    double travelGrains  = service.fetchDistanceBetween(getAttraction().getId(), other.getAttraction().getId()).getValue()/15;
+	    TravelDistance distance = service.fetchDistanceBetween(getAttraction().getId(), other.getAttraction().getId());
+	    double travelGrains  = distance!=null? (distance.getValue()/15):Double.MAX_VALUE;
 	    int traveltime = Double.valueOf(Math.ceil(travelGrains)).intValue();
 		int duration = otherStart - start - traveltime;
 	    int minTimePenalty;

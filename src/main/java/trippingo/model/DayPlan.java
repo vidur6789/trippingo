@@ -23,8 +23,8 @@ public class DayPlan {
 	
 	private Integer serialNo;
 	
-	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-	@JoinColumn(name="travel_plan_id")
+	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+	@JoinColumn(name="day_plan_id")
 	private Set<AttractionVisit> attractionVisits;
 	
 	public LocalDate getTravelDate() {

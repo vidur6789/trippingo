@@ -1,6 +1,6 @@
 package trippingo.service;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import trippingo.TripSolver;
 import trippingo.dto.AttractionVisitDTO;
 import trippingo.dto.DayPlanDTO;
 import trippingo.dto.ItineraryDTO;
@@ -36,7 +35,7 @@ import trippingo.model.TravelPlan;
 import trippingo.model.TravellerPreferences;
 import trippingo.optaplanner.resources.PlanAttraction;
 import trippingo.optaplanner.resources.TripPlanner;
-import trippingo.repository.ItineraryRepository;
+import trippingo.optaplanner.solver.TripSolver;
 import trippingo.repository.TravelPlanRepository;
 
 @RestController
@@ -47,7 +46,7 @@ public class TravelPlanController {
 	private TravelPlanRepository repository;
 	
 	@Autowired
-	private ItineraryRepository itineraryRepository;
+	private TripSolver tripSolver;
 	
 	@Autowired
 	private TouristAttractionController attractionService;
@@ -110,14 +109,44 @@ public class TravelPlanController {
 		return repository.findById(id).map(TravelPlan::getSelectedPromotionIds).map(promotionService::fetchPromotionsByIds).orElse(Collections.emptyList());
 	}
 	
-	@PostMapping("/{id}/itinerary")
+	@PutMapping("/{id}/preferences")
+	public TravelPlan saveTravelPreferences(@PathVariable Long id, @RequestBody TravellerPreferences travellerPreferences) {
+		return repository.findById(id).map(tp -> addTravellerPreferences(tp, travellerPreferences)).map(repository::save).orElse(null);
+	}
+	
+	
+	@PostMapping
+	public TravelPlan createTravelPlan(@RequestBody TravelPlan travelPlan) {
+		if(travelPlan == null)
+			travelPlan = new TravelPlan();
+		return repository.save(travelPlan);
+	}
+	
+	@PutMapping
+	public TravelPlan updateTravelPlan(@RequestBody TravelPlan travelPlan) {
+		return repository.save(travelPlan);
+	}
+	
+	
+	@PutMapping("/{id}/selectedAttractions")
+	public TravelPlan saveSelectedAttractions(@PathVariable Long id, @RequestBody Set<Long> attractionIds) {
+		return repository.findById(id).map(tp -> addSelectedAttractions(tp, attractionIds)).map(repository::save).orElse(null);
+		
+	}
+	
+	@PutMapping("/{id}/selectedPromotions")
+	public TravelPlan saveSelectedPromotions(@PathVariable Long id, @RequestBody Set<Long> promotionIds) {
+		return repository.findById(id).map(tp -> addSelectedPromotions(tp, promotionIds)).map(repository::save).orElse(null);
+	}
+	
+	@PutMapping("/{id}/itinerary")
 	public ItineraryDTO planItinerary(@PathVariable Long id) {
 		
 		TravelPlan travelPlan = repository.findById(id).orElse(null);
 		List<TouristAttraction> attractions = fetchSelectedAttractions(id);
 		TravellerPreferences preferences = travelPlan.getTravelPreferences();
-		TripPlanner solvedTripPlanner = new TripSolver().optimizeItinerary(attractions, preferences);
-		Itinerary itinerary = mapToItinerary(solvedTripPlanner);
+		TripPlanner solvedTripPlanner = tripSolver.optimizeItinerary(attractions, preferences);
+		Itinerary itinerary = mapToItinerary(solvedTripPlanner, travelPlan.getTravelDate());
 		travelPlan.setItinerary(itinerary);
 		repository.save(travelPlan);
 		ItineraryDTO itineraryDTO = fetchItinerary(id);
@@ -125,16 +154,17 @@ public class TravelPlanController {
 		
 	}
 	
-	private Itinerary mapToItinerary(TripPlanner solvedTripPlanner) {
+	private Itinerary mapToItinerary(TripPlanner solvedTripPlanner, LocalDate startDate) {
 		Itinerary itinerary = new Itinerary();
-		Set<DayPlan> dayPlans = solvedTripPlanner.getDayPlans().entrySet().stream().map(this::mapToDayPlan).collect(Collectors.toSet());
+		Set<DayPlan> dayPlans = solvedTripPlanner.getDayPlans().entrySet().stream().map(d -> this.mapToDayPlan(d, startDate)).collect(Collectors.toSet());
 		itinerary.setDayPlans(dayPlans);
 		return itinerary;
 	}
 	
-	private DayPlan mapToDayPlan(Map.Entry<Integer, List<PlanAttraction>> dayPlanEntry) {
+	private DayPlan mapToDayPlan(Map.Entry<Integer, List<PlanAttraction>> dayPlanEntry, LocalDate startDate) {
 		DayPlan dayPlan = new DayPlan();
 		dayPlan.setSerialNo(dayPlanEntry.getKey());
+		dayPlan.setTravelDate(startDate.plusDays(dayPlanEntry.getKey()- 1));
 		Set<AttractionVisit> attractionVisits = dayPlanEntry.getValue().stream().map(this::mapToAttractionVisit).collect(Collectors.toSet());
 		dayPlan.setAttractionVisits(attractionVisits );
 		return dayPlan;
@@ -150,18 +180,20 @@ public class TravelPlanController {
 		
 	}
 
-	@PostMapping
-	public TravelPlan createTravelPlan(@RequestBody TravelPlan travelPlan) {
-		return repository.save(travelPlan);
-	}
 	
-	@PutMapping("/{id}")
-	public TravelPlan saveTravelPreferences(@PathVariable Long id, @RequestBody TravellerPreferences travellerPreferences) {
-		return repository.findById(id).map(tp -> addTravellerPreferences(tp, travellerPreferences)).map(repository::save).orElse(null);
-	}
 	
 	private TravelPlan addTravellerPreferences(TravelPlan travelPlan, TravellerPreferences preferences) {
 		travelPlan.setTravelPreferences(preferences);
+		return travelPlan;
+	}
+	
+	private TravelPlan addSelectedAttractions(TravelPlan travelPlan, Set<Long> attractionIds) {
+		travelPlan.setSelectedAttractionIds(attractionIds);
+		return travelPlan;
+	}
+	
+	private TravelPlan addSelectedPromotions(TravelPlan travelPlan, Set<Long> promotionIds) {
+		travelPlan.setSelectedPromotionIds(promotionIds);
 		return travelPlan;
 	}
 	

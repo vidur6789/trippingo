@@ -17,7 +17,7 @@ public class Itinerary {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "itinerary_generator")
 	private Long id;
 	
-	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
 	@JoinColumn(name="ITINERARY_ID")
 	private Set<DayPlan> dayPlans;
 	

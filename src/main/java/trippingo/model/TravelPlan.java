@@ -1,5 +1,6 @@
 package trippingo.model;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
@@ -9,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,16 +37,18 @@ public class TravelPlan {
 	
 	private String hotelLocation;
 	
+	private LocalDate travelDate;
+	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "itinerary_id", referencedColumnName = "id")
 	private Itinerary itinerary;
 	
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "travel_plan_attractions", joinColumns = @JoinColumn(name = "travel_plan_id"))
 	private Set<Long> selectedAttractionIds;
 	
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name = "travel_plan_promotions", joinColumns = @JoinColumn(name = "travel_plan_id"))
 	private Set<Long> selectedPromotionIds;
 	
@@ -84,6 +88,14 @@ public class TravelPlan {
 	public void setSelectedPromotionIds(Set<Long> selectedPromotionIds) {
 		this.selectedPromotionIds = selectedPromotionIds;
 	}
+	public LocalDate getTravelDate() {
+		return travelDate;
+	}
+	public void setTravelDate(LocalDate travelDate) {
+		this.travelDate = travelDate;
+	}
+	
+	
 	
 	
 	

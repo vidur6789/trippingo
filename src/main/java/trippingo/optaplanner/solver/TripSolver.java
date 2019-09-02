@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package trippingo;
+package trippingo.optaplanner.solver;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ import trippingo.optaplanner.resources.Day;
 import trippingo.optaplanner.resources.PlanAttraction;
 import trippingo.optaplanner.resources.TimeGrain;
 import trippingo.optaplanner.resources.TripPlanner;
+import trippingo.service.AttractionRecommendationController;
 import trippingo.service.TouristAttractionController;
 
 
@@ -45,6 +48,8 @@ public class TripSolver implements  CommandLineRunner {
 	@Autowired
 	private TouristAttractionController service;
 	
+	private static final Logger logger = LogManager.getLogger(TripSolver.class);
+	
 	
 	public TripPlanner optimizeItinerary(List<TouristAttraction> attractions, TravellerPreferences travellerPreferences) {
 		 // Build the Solver
@@ -55,23 +60,30 @@ public class TripSolver implements  CommandLineRunner {
         		.map(this::mapToPlanAttraction)
         		.collect(Collectors.toList());
 		unsolvedTripSolver.setAttraction(planAttractions);
-		unsolvedTripSolver.setTimeGrainSlots(generateTimeGrains(4, 32, 80));
+		unsolvedTripSolver.setTimeGrainSlots(generateTimeGrains(travellerPreferences.getNoOfTravelDays(), 32, 80));
 
 		// Solve the problem
-		TripPlanner solvedTripSolver = solver.solve(unsolvedTripSolver);
-		return solvedTripSolver;
+		try {
+			TripPlanner solvedTripSolver = solver.solve(unsolvedTripSolver);
+			logger.info(solvedTripSolver.toString());
+			return solvedTripSolver;
+		}
+		catch(Exception e) {
+			logger.error("Error thrown in TripSolver.optimizeItinerary", e);
+			return unsolvedTripSolver;
+		}
 	}
 	
 	
 	private List<TimeGrain> generateTimeGrains(int noOfDays, int startTimeSlot, int lastTravelSlot) {
 		List<Day> days  = new ArrayList<Day>();
-		for(int i=1; i < 6; i++) {
+		for(int i=1; i < noOfDays+1; i++) {
 			Day day = new Day();
 			day.setDayOfYear(i);
 			days.add(day);
 		}
 		
-		days.stream().forEach(d -> {d.setFirstTravelSlot(32); d.setLastTravelSlot(80);});
+		days.stream().forEach(d -> {d.setFirstTravelSlot(startTimeSlot); d.setLastTravelSlot(lastTravelSlot);});
 		List <TimeGrain> timeGrainSlots = new ArrayList<TimeGrain>();
 		for(Day day: days) {
 			for(int i=0; i <24*4;i++) {

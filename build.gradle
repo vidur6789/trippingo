@@ -51,3 +51,14 @@ application {
     // Define the main class for the application
     mainClassName = 'trippingo.TrippingoApp'
 }
+
+/**springBoot {
+  buildInfo {
+    properties {
+      group = "irs"
+      name = "trippingo"
+      version = "1."
+    }
+  }
+}
+**/

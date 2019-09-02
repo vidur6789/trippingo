@@ -93,7 +93,7 @@ public class TripPlanner {
 		String scoreString = "Hard: " + this.getScore().getHardScore() + "Soft: "+ this.getScore().getSoftScore();
 		//day plans
 		String dayPlansString = getDayPlans().entrySet().stream().map(this::toDayPlanString).collect(Collectors.joining("\n"));
-		return allAttractionString.concat("\n").concat(scoreString).concat(dayPlansString);
+		return allAttractionString.concat("\n").concat(scoreString).concat("\n").concat(dayPlansString);
 	}
 	
 	private String toDayPlanString(Map.Entry<Integer, List<PlanAttraction>> dayPlan) {

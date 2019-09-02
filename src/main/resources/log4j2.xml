@@ -34,7 +34,7 @@
         </Root>
  
         <!-- LOG trippingo.service* Service logs  at TRACE level -->
-        <Logger name="trippingo.service" level="trace" additivity="false">
+        <Logger name="trippingo" level="trace" additivity="false">
 			<AppenderRef ref="RollingFile"/>
 		</Logger>
 		<!-- LOG trippingo.data* Import logs at DEBUG level -->
