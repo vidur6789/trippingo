@@ -1,18 +1,16 @@
 package trippingo;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import trippingo.dto.SaveSelectedAttractionRequest;
+import trippingo.dto.SaveSelectedPromotionRequest;
 import trippingo.model.MealPreference;
 import trippingo.model.TravelPlan;
 import trippingo.model.TravellerPreferences;
@@ -47,13 +45,18 @@ public class TravelPlanTestDataUtility implements CommandLineRunner{
 	}
 
 
-	private Set<Long> testSelectedPromotions() {
-		return Collections.emptySet();
+	private SaveSelectedPromotionRequest testSelectedPromotions() {
+		SaveSelectedPromotionRequest request = new SaveSelectedPromotionRequest();
+		request.setPromotionIds(new Long[0]);
+		return request;
 	}
 
 
-	private Set<Long> testSelectedAttractions() {
-		return LongStream.rangeClosed(1,9).collect(HashSet::new, HashSet::add, (o1,o2) -> o1.addAll(o2));
+	private SaveSelectedAttractionRequest testSelectedAttractions() {
+		SaveSelectedAttractionRequest request = new SaveSelectedAttractionRequest();
+		Long[] attractionIds =  LongStream.rangeClosed(1,9).collect(HashSet::new, HashSet::add, (o1,o2) -> o1.addAll(o2)).stream().toArray(Long[]::new);
+		request.setAttractionIds(attractionIds);
+		return request;
 	}
 
 

@@ -11,7 +11,7 @@
 	<!--<exhaustiveSearch> <exhaustiveSearchType>BRUTE_FORCE</exhaustiveSearchType> 
 		</exhaustiveSearch> -->
 	<termination>
-		<secondsSpentLimit>100</secondsSpentLimit>
+		<secondsSpentLimit>10</secondsSpentLimit>
 	</termination>
 	<!-- Optimization algorithms configuration -->
 

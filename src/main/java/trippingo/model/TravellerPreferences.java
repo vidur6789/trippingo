@@ -1,8 +1,13 @@
 package trippingo.model;
 
+import java.util.Set;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
 @Embeddable
 public class TravellerPreferences {
@@ -18,6 +23,11 @@ public class TravellerPreferences {
 	
 	@Enumerated(EnumType.STRING)
 	private MealPreference mealPreference;
+	
+	@ElementCollection(targetClass = AttractionCategory.class)
+	@Enumerated(EnumType.STRING)
+	@JoinTable(name = "travel_interests", joinColumns = @JoinColumn(name = "travel_plan_id"))
+	private Set<AttractionCategory> categories;
 	
 	public Boolean getFlexibleTime() {
 		return flexibleTime;
@@ -49,6 +59,14 @@ public class TravellerPreferences {
 	public void setMealPreference(MealPreference mealPreference) {
 		this.mealPreference = mealPreference;
 	}
+	public Set<AttractionCategory> getCategories() {
+		return categories;
+	}
+	public void setCategories(Set<AttractionCategory> categories) {
+		this.categories = categories;
+	}
+	
+	
 	
 	
 

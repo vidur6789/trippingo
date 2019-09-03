@@ -39,6 +39,12 @@ public class TravelPlan {
 	
 	private LocalDate travelDate;
 	
+	private LocalDate travelEndDate;
+	
+	private String name;
+	private String email;
+	
+	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "itinerary_id", referencedColumnName = "id")
 	private Itinerary itinerary;
@@ -94,6 +100,26 @@ public class TravelPlan {
 	public void setTravelDate(LocalDate travelDate) {
 		this.travelDate = travelDate;
 	}
+	public LocalDate getTravelEndDate() {
+		return travelEndDate;
+	}
+	public void setTravelEndDate(LocalDate travelEndDate) {
+		this.travelEndDate = travelEndDate;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 	
 	
 	
