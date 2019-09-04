@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import trippingo.dto.AttractionVisitDTO;
@@ -29,6 +30,7 @@ import trippingo.dto.DayPlanDTO;
 import trippingo.dto.ItineraryDTO;
 import trippingo.dto.SaveSelectedAttractionRequest;
 import trippingo.dto.SaveSelectedPromotionRequest;
+import trippingo.model.AttractionCategory;
 import trippingo.model.AttractionVisit;
 import trippingo.model.DayPlan;
 import trippingo.model.Itinerary;
@@ -56,6 +58,9 @@ public class TravelPlanController {
 	
 	@Autowired
 	private PromotionController promotionService;
+	
+	@Autowired
+	private AttractionRecommendationController recommendationService;
 	
 	private static final Logger logger = LogManager.getLogger(PromotionController.class);
 	
@@ -102,6 +107,15 @@ public class TravelPlanController {
 		return repository.findById(id).map(TravelPlan::getTravelPreferences).orElse(null);
 	}
 	
+	@GetMapping("/{id}/recommendations")
+	public Iterable<TouristAttraction> fetchRecommendation(@PathVariable Long id, 
+														   @RequestParam(value="count", required = false, defaultValue = "5") int resultCount) {
+		
+		TravellerPreferences preferences = repository.findById(id).map(TravelPlan::getTravelPreferences).orElse(new TravellerPreferences());
+		List<String> keywords = preferences.getCategories().stream().map(AttractionCategory::name).collect(Collectors.toList());
+		return recommendationService.fetchRecommendations(preferences.getTravellerType(), keywords, null, resultCount);
+	}
+	
 	@GetMapping("/{id}/selectedAttractions")
 	public List<TouristAttraction> fetchSelectedAttractions(@PathVariable Long id) {
 		return repository.findById(id).map(TravelPlan::getSelectedAttractionIds).map(attractionService::fetchAttractionsByIds).orElse(Collections.emptyList());
@@ -111,6 +125,8 @@ public class TravelPlanController {
 	public List<Promotion> fetchSelectedPromotions(@PathVariable Long id) {
 		return repository.findById(id).map(TravelPlan::getSelectedPromotionIds).map(promotionService::fetchPromotionsByIds).orElse(Collections.emptyList());
 	}
+	
+	
 	
 	@PutMapping("/{id}/preferences")
 	public TravelPlan saveTravelPreferences(@PathVariable Long id, @RequestBody TravellerPreferences travellerPreferences) {
