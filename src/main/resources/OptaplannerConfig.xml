@@ -15,6 +15,7 @@
 	</termination>
 	<!-- Optimization algorithms configuration -->
 
+	<!-- moveThreadCount>AUTO</moveThreadCount-->
 
 
 </solver>

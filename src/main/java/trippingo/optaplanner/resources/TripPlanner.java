@@ -14,17 +14,18 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
 @PlanningSolution
 public class TripPlanner {
-	private long id;
+	
+	private Long id;
 	
 	private List <TimeGrain> timeGrainSlots;
 	private List <PlanAttraction> attraction;
 	
 	private HardSoftScore score;
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

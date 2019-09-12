@@ -164,9 +164,15 @@ public class TravelPlanController {
 	public ItineraryDTO planItinerary(@PathVariable Long id) {
 		
 		TravelPlan travelPlan = repository.findById(id).orElse(null);
-		List<TouristAttraction> attractions = fetchSelectedAttractions(id);
+		List<TouristAttraction> selectedAttractions = fetchSelectedAttractions(id);
+		Set<Long> selectedAttractionIds = selectedAttractions.stream().map(TouristAttraction::getId).collect(Collectors.toSet());
 		TravellerPreferences preferences = travelPlan.getTravelPreferences();
-		TripPlanner solvedTripPlanner = tripSolver.optimizeItinerary(attractions, preferences);
+		int maxAttractions = preferences.getNoOfTravelDays().intValue() * 4;
+//		int moreAttractions =maxAttractions - selectedAttractions.size();
+		List<TouristAttraction> otherRecommendations= (List<TouristAttraction>) fetchRecommendation(id, maxAttractions);
+		otherRecommendations.stream().filter(rec -> !selectedAttractionIds.contains(rec.getId())).forEach(selectedAttractions::add);
+		selectedAttractions = selectedAttractions.subList(0, maxAttractions);
+		TripPlanner solvedTripPlanner = tripSolver.optimizeItinerary(selectedAttractions, preferences);
 		Itinerary itinerary = mapToItinerary(solvedTripPlanner, travelPlan.getTravelDate());
 		travelPlan.setItinerary(itinerary);
 		repository.save(travelPlan);

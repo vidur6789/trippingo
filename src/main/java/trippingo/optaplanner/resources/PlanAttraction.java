@@ -1,6 +1,7 @@
 package trippingo.optaplanner.resources;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import trippingo.model.TouristAttraction;
@@ -13,6 +14,9 @@ public class PlanAttraction {
 	private TouristAttraction attraction;
 	private TimeGrain startingTimeGrain;
 	private int serialNo;
+	
+	@PlanningId
+	private Long id;
 	
 	private TouristAttractionController service;
 	
@@ -32,6 +36,7 @@ public class PlanAttraction {
 
 	public void setAttraction(TouristAttraction attraction) {
 		this.attraction = attraction;
+		this.id = attraction.getId();
 	}
 
 	public int calculateOverlap(PlanAttraction other) {
@@ -129,6 +134,16 @@ public class PlanAttraction {
 		return "Time slot for " + attraction.getName() + ": " + getStartingTimeGrain().getGrainIndex()+
 				". Recommened Duration: " + duration + "serialNo:" + getSerialNo();
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 	

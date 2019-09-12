@@ -43,7 +43,6 @@ import trippingo.service.TouristAttractionController;
 @Component
 public class TripSolver implements  CommandLineRunner {
 	
-
 	
 	@Autowired
 	private TouristAttractionController service;
@@ -60,13 +59,26 @@ public class TripSolver implements  CommandLineRunner {
         		.map(this::mapToPlanAttraction)
         		.collect(Collectors.toList());
 		unsolvedTripSolver.setAttraction(planAttractions);
-		unsolvedTripSolver.setTimeGrainSlots(generateTimeGrains(travellerPreferences.getNoOfTravelDays(), 32, 80));
+		int maxHours = 14;
+		int diff = maxHours - travellerPreferences.getTravelHoursPerDay().intValue();
+		int start = 32 + (diff/2)*4;
+		int end = start + travellerPreferences.getTravelHoursPerDay().intValue()*4;
+		unsolvedTripSolver.setTimeGrainSlots(generateTimeGrains(travellerPreferences.getNoOfTravelDays(), start, end));
 
 		// Solve the problem
 		try {
-			TripPlanner solvedTripSolver = solver.solve(unsolvedTripSolver);
-			logger.info(solvedTripSolver.toString());
-			return solvedTripSolver;
+			TripPlanner bestTripPlanner=null;
+			for (int i=0; i<3;i++) {
+				unsolvedTripSolver.setAttraction(planAttractions.subList(0, planAttractions.size()-i));
+				TripPlanner solvedTripSolver = solver.solve(unsolvedTripSolver);
+				logger.info(solvedTripSolver.toString());
+				
+				if(bestTripPlanner == null || solvedTripSolver.getScore().getHardScore() > bestTripPlanner.getScore().getHardScore()) {
+					bestTripPlanner = solvedTripSolver;
+					logger.info("Found better score" + bestTripPlanner.getScore().getHardScore() + ",Soft Score:"+bestTripPlanner.getScore().getSoftScore());
+				}
+			}
+			return bestTripPlanner;
 		}
 		catch(Exception e) {
 			logger.error("Error thrown in TripSolver.optimizeItinerary", e);
@@ -90,6 +102,8 @@ public class TripSolver implements  CommandLineRunner {
 				TimeGrain timeGrain = new TimeGrain();
 				timeGrain.setDay(day);
 				timeGrain.setGrainIndex(i);
+				String id = day.getDayOfYear() + "" + i;
+				timeGrain.setId(id);
 				timeGrainSlots.add(timeGrain);
 			}
 		}

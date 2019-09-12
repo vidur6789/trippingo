@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 public class TimeGrain {
 
@@ -32,6 +32,9 @@ public class TimeGrain {
     private int grainIndex; // unique
 
     private Day day;
+    
+    @PlanningId
+    private String id;
 
     public int getGrainIndex() {
         return grainIndex;
@@ -60,6 +63,16 @@ public class TimeGrain {
     public LocalDateTime getDateTime() {
         return LocalDateTime.of(getDate(), getTime());
     }
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+    
+    
     
 
 

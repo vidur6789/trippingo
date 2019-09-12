@@ -2,6 +2,7 @@ package trippingo.model;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -64,8 +65,9 @@ public class TouristAttraction {
 	@Column(length=4000)
 	private String keywords;
 	
-	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-	@JoinColumn(name="ATTRACTION_ID")
+//	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+//	@JoinColumn(name="ATTRACTION_ID")
+	@Transient
 	private Set<Review>reviews;
 	
 	@Embedded
@@ -154,7 +156,7 @@ public class TouristAttraction {
 		this.keywords = keywords;
 	}
 	public Set<Review> getReviews() {
-		return reviews;
+		return reviews == null ? Collections.emptySet():reviews;
 	}
 	public void setReviews(Set<Review> reviews) {
 		this.reviews = reviews;
