@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import rules.AssociationRulesRecommender;
+import trippingo.dto.AssociationRecommendationDTO;
 import trippingo.dto.AttractionVisitDTO;
 import trippingo.dto.DayPlanDTO;
 import trippingo.dto.ItineraryDTO;
@@ -128,6 +130,17 @@ public class TravelPlanController {
 	@GetMapping("/{id}/selectedPromotions")
 	public List<Promotion> fetchSelectedPromotions(@PathVariable Long id) {
 		return repository.findById(id).map(TravelPlan::getSelectedPromotionIds).map(promotionService::fetchPromotionsByIds).orElse(Collections.emptyList());
+	}
+	
+	@GetMapping("/{id}/associatedAttractions")
+	public List<TouristAttraction> fetchAssociatedAttractions(@PathVariable Long id, @RequestParam(value="attractions", required = false) List<String> attractions) {
+		AssociationRecommendationDTO[] inputs = new AssociationRecommendationDTO[] {new AssociationRecommendationDTO(attractions.toArray(new String[0]))};
+		AssociationRecommendationDTO[] outputs = AssociationRulesRecommender.fetchAssociatedAttractions(inputs);
+		return Arrays.stream(outputs)
+					.map(AssociationRecommendationDTO::getAssociatedAttractionNames)
+					.flatMap(List::stream)
+					.map(attractionRepository::findByName)
+					.collect(Collectors.toList());
 	}
 	
 	

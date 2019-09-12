@@ -1,4 +1,5 @@
 import trippingo.model.TouristAttraction
+import trippingo.dto.AssociationRecommendationDTO;
 dialect  "mvel"
 
 rule "AssociationRules_long_1"
@@ -1168,7 +1169,9 @@ rule "AssociationRules_long_137"
     when
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="The Helix Bridge")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
+    $recommendationBox.getAssociatedAttractionNames.add("Cloud Forest");
     System.out.printf("Associated attraction is: Cloud Forest");
 end
 
