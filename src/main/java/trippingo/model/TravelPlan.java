@@ -43,6 +43,26 @@ public class TravelPlan {
 	
 	private String name;
 	private String email;
+	private Boolean overallValidation;
+	private Integer totalDuration;
+
+	public Boolean getOverallValidation() {
+		return overallValidation;
+	}
+
+	public void setOverallValidation(Boolean overallValidation) {
+		this.overallValidation = overallValidation;
+	}
+
+
+
+	public Integer getTotalDuration() {
+		return totalDuration;
+	}
+
+	public void setTotalDuration(Integer totalDuration) {
+		this.totalDuration = totalDuration;
+	}
 	
 	
     @OneToOne(cascade = CascadeType.ALL)

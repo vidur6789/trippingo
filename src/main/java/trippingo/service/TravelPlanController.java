@@ -41,12 +41,15 @@ import trippingo.model.TravellerPreferences;
 import trippingo.optaplanner.resources.PlanAttraction;
 import trippingo.optaplanner.resources.TripPlanner;
 import trippingo.optaplanner.solver.TripSolver;
+import trippingo.repository.TouristAttractionRepository;
 import trippingo.repository.TravelPlanRepository;
 
 @RestController
 @RequestMapping(path="/travelPlans")
 public class TravelPlanController {
-	
+	@Autowired
+	private TouristAttractionRepository attractionRepository;
+
 	@Autowired
 	private TravelPlanRepository repository;
 	
@@ -74,7 +77,8 @@ public class TravelPlanController {
 	public ItineraryDTO fetchItinerary(@PathVariable Long id) {
 		return repository.findById(id).map(TravelPlan::getItinerary).map(this::mapToItineraryDTO).orElseThrow(() -> new EntityNotFoundException());
 	}
-	
+
+
 	private ItineraryDTO mapToItineraryDTO(Itinerary itinerary) {
 		ItineraryDTO itineraryDTO = new ItineraryDTO();
 		itineraryDTO.setItineraryId(itinerary.getId());
