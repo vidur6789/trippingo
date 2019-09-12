@@ -22,6 +22,10 @@ public class DayPlan {
 	private LocalDate travelDate;
 	
 	private Integer serialNo;
+
+	private Boolean dailyValidation;
+
+	private Integer dailyTotalDuration;
 	
 	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
 	@JoinColumn(name="day_plan_id")
@@ -50,6 +54,21 @@ public class DayPlan {
 	}
 	public void setAttractionVisits(Set<AttractionVisit> attractionVisits) {
 		this.attractionVisits = attractionVisits;
+	}
+	public Boolean getDailyValidation() {
+		return dailyValidation;
+	}
+
+	public void setDailyValidation(Boolean dailyValidation) {
+		this.dailyValidation = dailyValidation;
+	}
+
+	public Integer getDailyTotalDuration() {
+		return dailyTotalDuration;
+	}
+
+	public void setDailyTotalDuration(Integer dailyTotalDuration) {
+		this.dailyTotalDuration = dailyTotalDuration;
 	}
 	
 	
