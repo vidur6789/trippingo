@@ -1,4 +1,5 @@
-import trippingo.model.TouristAttraction
+package rules;
+import trippingo.model.TouristAttraction;
 import trippingo.dto.AssociationRecommendationDTO;
 dialect  "mvel"
 
@@ -6,8 +7,9 @@ rule "AssociationRules_long_1"
     when
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Waterfront Promenade")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_2"
@@ -15,8 +17,9 @@ rule "AssociationRules_long_2"
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Chinatown")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_3"
@@ -24,16 +27,18 @@ rule "AssociationRules_long_3"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_4"
     when
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_5"
@@ -41,8 +46,9 @@ rule "AssociationRules_long_5"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_6"
@@ -50,8 +56,9 @@ rule "AssociationRules_long_6"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_7"
@@ -60,32 +67,36 @@ rule "AssociationRules_long_7"
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Cloud Forest")
     $touristattraction4:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_8"
     when
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Jurong Bird Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_9"
     when
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_10"
     when
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_11"
@@ -93,8 +104,9 @@ rule "AssociationRules_long_11"
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_12"
@@ -102,24 +114,27 @@ rule "AssociationRules_long_12"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_13"
     when
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Buddha Tooth Relic Temple and Museum")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_14"
     when
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_15"
@@ -127,8 +142,9 @@ rule "AssociationRules_long_15"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Flower Dome");
+    $recommendationBox.getAssociatedAttractionNames().add("Flower Dome");
 end
 
 rule "AssociationRules_long_16"
@@ -137,8 +153,9 @@ rule "AssociationRules_long_16"
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="National Orchid Garden")
     $touristattraction4:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_17"
@@ -146,8 +163,9 @@ rule "AssociationRules_long_17"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_18"
@@ -155,8 +173,9 @@ rule "AssociationRules_long_18"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
     $touristattraction3:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_19"
@@ -164,8 +183,9 @@ rule "AssociationRules_long_19"
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_20"
@@ -173,8 +193,9 @@ rule "AssociationRules_long_20"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_21"
@@ -182,24 +203,27 @@ rule "AssociationRules_long_21"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_22"
     when
     $touristattraction1:TouristAttraction(name=="Supertree Grove")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_23"
     when
     $touristattraction1:TouristAttraction(name=="Flower Dome")
     $touristattraction2:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_24"
@@ -207,8 +231,9 @@ rule "AssociationRules_long_24"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_25"
@@ -216,8 +241,9 @@ rule "AssociationRules_long_25"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
     $touristattraction3:TouristAttraction(name=="Night Safari")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_26"
@@ -225,8 +251,9 @@ rule "AssociationRules_long_26"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Chinatown")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_27"
@@ -234,8 +261,9 @@ rule "AssociationRules_long_27"
     $touristattraction1:TouristAttraction(name=="Chinatown")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_28"
@@ -243,16 +271,18 @@ rule "AssociationRules_long_28"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_29"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_30"
@@ -260,16 +290,18 @@ rule "AssociationRules_long_30"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
     $touristattraction3:TouristAttraction(name=="Universal Studios Singapore")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_31"
     when
     $touristattraction1:TouristAttraction(name=="Flower Dome")
     $touristattraction2:TouristAttraction(name=="Waterfront Promenade")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_32"
@@ -277,40 +309,45 @@ rule "AssociationRules_long_32"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Flyer")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_33"
     when
     $touristattraction1:TouristAttraction(name=="Flower Dome")
     $touristattraction2:TouristAttraction(name=="Night Safari")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_34"
     when
     $touristattraction1:TouristAttraction(name=="Chinatown")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_35"
     when
     $touristattraction1:TouristAttraction(name=="Flower Dome")
     $touristattraction2:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_36"
     when
     $touristattraction1:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_37"
@@ -318,16 +355,18 @@ rule "AssociationRules_long_37"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_38"
     when
     $touristattraction1:TouristAttraction(name=="Buddha Tooth Relic Temple and Museum")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_39"
@@ -335,24 +374,27 @@ rule "AssociationRules_long_39"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Zoo")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_40"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_41"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Flyer")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_42"
@@ -361,40 +403,45 @@ rule "AssociationRules_long_42"
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Cloud Forest")
     $touristattraction4:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_43"
     when
     $touristattraction1:TouristAttraction(name=="Jurong Bird Park")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_44"
     when
     $touristattraction1:TouristAttraction(name=="Marina Bay")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_45"
     when
     $touristattraction1:TouristAttraction(name=="Flower Dome")
     $touristattraction2:TouristAttraction(name=="Universal Studios Singapore")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_46"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Zoo")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_47"
@@ -402,8 +449,9 @@ rule "AssociationRules_long_47"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_48"
@@ -411,8 +459,9 @@ rule "AssociationRules_long_48"
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_49"
@@ -420,16 +469,18 @@ rule "AssociationRules_long_49"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_50"
     when
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_51"
@@ -437,8 +488,9 @@ rule "AssociationRules_long_51"
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Singapore Zoo")
     $touristattraction3:TouristAttraction(name=="Cloud Forest")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_52"
@@ -446,8 +498,9 @@ rule "AssociationRules_long_52"
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_53"
@@ -455,23 +508,26 @@ rule "AssociationRules_long_53"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Chinatown")
     $touristattraction3:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Orchard Road");
+    $recommendationBox.getAssociatedAttractionNames().add("Orchard Road");
 end
 
 rule "AssociationRules_long_54"
     when
     $touristattraction1:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_55"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_56"
@@ -479,8 +535,9 @@ rule "AssociationRules_long_56"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Orchard Road")
     $touristattraction3:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_57"
@@ -488,8 +545,9 @@ rule "AssociationRules_long_57"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_58"
@@ -497,8 +555,9 @@ rule "AssociationRules_long_58"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Orchard Road");
+    $recommendationBox.getAssociatedAttractionNames().add("Orchard Road");
 end
 
 rule "AssociationRules_long_59"
@@ -506,16 +565,18 @@ rule "AssociationRules_long_59"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Chinatown")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Orchard Road");
+    $recommendationBox.getAssociatedAttractionNames().add("Orchard Road");
 end
 
 rule "AssociationRules_long_60"
     when
     $touristattraction1:TouristAttraction(name=="Marina Bay")
     $touristattraction2:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Orchard Road");
+    $recommendationBox.getAssociatedAttractionNames().add("Orchard Road");
 end
 
 rule "AssociationRules_long_61"
@@ -523,16 +584,18 @@ rule "AssociationRules_long_61"
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Chinatown")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Orchard Road");
+    $recommendationBox.getAssociatedAttractionNames().add("Orchard Road");
 end
 
 rule "AssociationRules_long_62"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_63"
@@ -540,8 +603,9 @@ rule "AssociationRules_long_63"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Zoo")
     $touristattraction3:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_64"
@@ -549,8 +613,9 @@ rule "AssociationRules_long_64"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_65"
@@ -558,8 +623,9 @@ rule "AssociationRules_long_65"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_66"
@@ -567,8 +633,9 @@ rule "AssociationRules_long_66"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Cloud Forest")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_67"
@@ -576,24 +643,27 @@ rule "AssociationRules_long_67"
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Orchard Road");
+    $recommendationBox.getAssociatedAttractionNames().add("Orchard Road");
 end
 
 rule "AssociationRules_long_68"
     when
     $touristattraction1:TouristAttraction(name=="Chinatown")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Orchard Road");
+    $recommendationBox.getAssociatedAttractionNames().add("Orchard Road");
 end
 
 rule "AssociationRules_long_69"
     when
     $touristattraction1:TouristAttraction(name=="Supertree Grove")
     $touristattraction2:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_70"
@@ -602,8 +672,9 @@ rule "AssociationRules_long_70"
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="National Orchid Garden")
     $touristattraction4:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_71"
@@ -611,8 +682,9 @@ rule "AssociationRules_long_71"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
     $touristattraction3:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_72"
@@ -620,8 +692,9 @@ rule "AssociationRules_long_72"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_73"
@@ -629,16 +702,18 @@ rule "AssociationRules_long_73"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Orchard Road");
+    $recommendationBox.getAssociatedAttractionNames().add("Orchard Road");
 end
 
 rule "AssociationRules_long_74"
     when
     $touristattraction1:TouristAttraction(name=="Marina Bay")
     $touristattraction2:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_75"
@@ -646,8 +721,9 @@ rule "AssociationRules_long_75"
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Chinatown")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_76"
@@ -655,8 +731,9 @@ rule "AssociationRules_long_76"
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_77"
@@ -664,8 +741,9 @@ rule "AssociationRules_long_77"
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_78"
@@ -673,8 +751,9 @@ rule "AssociationRules_long_78"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_79"
@@ -682,8 +761,9 @@ rule "AssociationRules_long_79"
     $touristattraction1:TouristAttraction(name=="Singapore Zoo")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_80"
@@ -691,8 +771,9 @@ rule "AssociationRules_long_80"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction3:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_81"
@@ -700,8 +781,9 @@ rule "AssociationRules_long_81"
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Chinatown")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_82"
@@ -709,8 +791,9 @@ rule "AssociationRules_long_82"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_83"
@@ -718,22 +801,25 @@ rule "AssociationRules_long_83"
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_84"
     when
     $touristattraction1:TouristAttraction(name=="Skyline Luge Sentosa")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Universal Studios Singapore");
+    $recommendationBox.getAssociatedAttractionNames().add("Universal Studios Singapore");
 end
 
 rule "AssociationRules_long_85"
     when
     $touristattraction1:TouristAttraction(name=="Adventure Cove Waterpark")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Universal Studios Singapore");
+    $recommendationBox.getAssociatedAttractionNames().add("Universal Studios Singapore");
 end
 
 rule "AssociationRules_long_86"
@@ -741,16 +827,18 @@ rule "AssociationRules_long_86"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_87"
     when
     $touristattraction1:TouristAttraction(name=="Orchard Road")
     $touristattraction2:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_88"
@@ -758,8 +846,9 @@ rule "AssociationRules_long_88"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_89"
@@ -767,8 +856,9 @@ rule "AssociationRules_long_89"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_90"
@@ -776,8 +866,9 @@ rule "AssociationRules_long_90"
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_91"
@@ -785,24 +876,27 @@ rule "AssociationRules_long_91"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_92"
     when
     $touristattraction1:TouristAttraction(name=="Supertree Grove")
     $touristattraction2:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_93"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Buddha Tooth Relic Temple and Museum")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_94"
@@ -810,8 +904,9 @@ rule "AssociationRules_long_94"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_95"
@@ -819,8 +914,9 @@ rule "AssociationRules_long_95"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_96"
@@ -828,8 +924,9 @@ rule "AssociationRules_long_96"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_97"
@@ -837,8 +934,9 @@ rule "AssociationRules_long_97"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_98"
@@ -846,24 +944,27 @@ rule "AssociationRules_long_98"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Flyer")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_99"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_100"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Zoo")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_101"
@@ -871,15 +972,17 @@ rule "AssociationRules_long_101"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_102"
     when
     $touristattraction1:TouristAttraction(name=="Madame Tussauds Singapore")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Universal Studios Singapore");
+    $recommendationBox.getAssociatedAttractionNames().add("Universal Studios Singapore");
 end
 
 rule "AssociationRules_long_103"
@@ -887,16 +990,18 @@ rule "AssociationRules_long_103"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Singapore Flyer")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_104"
     when
     $touristattraction1:TouristAttraction(name=="Flower Dome")
     $touristattraction2:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_105"
@@ -904,32 +1009,36 @@ rule "AssociationRules_long_105"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_106"
     when
     $touristattraction1:TouristAttraction(name=="Supertree Grove")
     $touristattraction2:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_107"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Flyer")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_108"
     when
     $touristattraction1:TouristAttraction(name=="Marina Bay")
     $touristattraction2:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_109"
@@ -937,8 +1046,9 @@ rule "AssociationRules_long_109"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Zoo")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Chinatown");
+    $recommendationBox.getAssociatedAttractionNames().add("Chinatown");
 end
 
 rule "AssociationRules_long_110"
@@ -946,8 +1056,9 @@ rule "AssociationRules_long_110"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_111"
@@ -955,8 +1066,9 @@ rule "AssociationRules_long_111"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Marina Bay Sands Skypark")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_112"
@@ -964,24 +1076,27 @@ rule "AssociationRules_long_112"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Cloud Forest")
     $touristattraction3:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_113"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Flower Dome")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_114"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_115"
@@ -989,31 +1104,35 @@ rule "AssociationRules_long_115"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_116"
     when
     $touristattraction1:TouristAttraction(name=="Supertree Grove")
     $touristattraction2:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_117"
     when
     $touristattraction1:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_118"
     when
     $touristattraction1:TouristAttraction(name=="Sentosa Merlion")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Universal Studios Singapore");
+    $recommendationBox.getAssociatedAttractionNames().add("Universal Studios Singapore");
 end
 
 rule "AssociationRules_long_119"
@@ -1021,24 +1140,27 @@ rule "AssociationRules_long_119"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Singapore Flyer")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_120"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_121"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_122"
@@ -1046,24 +1168,27 @@ rule "AssociationRules_long_122"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction3:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_123"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_124"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: National Orchid Garden");
+    $recommendationBox.getAssociatedAttractionNames().add("National Orchid Garden");
 end
 
 rule "AssociationRules_long_125"
@@ -1071,39 +1196,44 @@ rule "AssociationRules_long_125"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Zoo")
     $touristattraction3:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_126"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_127"
     when
     $touristattraction1:TouristAttraction(name=="Cloud Forest")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_128"
     when
     $touristattraction1:TouristAttraction(name=="SEA Aquarium")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Universal Studios Singapore");
+    $recommendationBox.getAssociatedAttractionNames().add("Universal Studios Singapore");
 end
 
 rule "AssociationRules_long_129"
     when
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_130"
@@ -1111,40 +1241,45 @@ rule "AssociationRules_long_130"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_131"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Zoo")
     $touristattraction2:TouristAttraction(name=="SEA Aquarium")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Universal Studios Singapore");
+    $recommendationBox.getAssociatedAttractionNames().add("Universal Studios Singapore");
 end
 
 rule "AssociationRules_long_132"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_133"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Buddha Tooth Relic Temple and Museum")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_134"
     when
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="SEA Aquarium")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Universal Studios Singapore");
+    $recommendationBox.getAssociatedAttractionNames().add("Universal Studios Singapore");
 end
 
 rule "AssociationRules_long_135"
@@ -1152,8 +1287,9 @@ rule "AssociationRules_long_135"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Flyer")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_136"
@@ -1161,8 +1297,9 @@ rule "AssociationRules_long_136"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_137"
@@ -1171,16 +1308,17 @@ rule "AssociationRules_long_137"
     $touristattraction2:TouristAttraction(name=="The Helix Bridge")
     $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    $recommendationBox.getAssociatedAttractionNames.add("Cloud Forest");
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
+    System.out.printf("Cloud Forest");
 end
 
 rule "AssociationRules_long_138"
     when
     $touristattraction1:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_139"
@@ -1188,24 +1326,27 @@ rule "AssociationRules_long_139"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_140"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Zoo")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_141"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Night Safari")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_142"
@@ -1213,8 +1354,9 @@ rule "AssociationRules_long_142"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Chinatown")
     $touristattraction3:TouristAttraction(name=="Merlion Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_143"
@@ -1222,8 +1364,9 @@ rule "AssociationRules_long_143"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_144"
@@ -1231,15 +1374,17 @@ rule "AssociationRules_long_144"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Zoo")
     $touristattraction3:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_145"
     when
     $touristattraction1:TouristAttraction(name=="Supertree Grove")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_146"
@@ -1247,8 +1392,9 @@ rule "AssociationRules_long_146"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_147"
@@ -1256,8 +1402,9 @@ rule "AssociationRules_long_147"
     $touristattraction1:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_148"
@@ -1265,8 +1412,9 @@ rule "AssociationRules_long_148"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Zoo")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_149"
@@ -1274,8 +1422,9 @@ rule "AssociationRules_long_149"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Flyer")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_150"
@@ -1283,8 +1432,9 @@ rule "AssociationRules_long_150"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_151"
@@ -1292,8 +1442,9 @@ rule "AssociationRules_long_151"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_152"
@@ -1301,8 +1452,9 @@ rule "AssociationRules_long_152"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction3:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_153"
@@ -1310,8 +1462,9 @@ rule "AssociationRules_long_153"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Botanic Gardens")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_154"
@@ -1319,8 +1472,9 @@ rule "AssociationRules_long_154"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Flyer")
     $touristattraction3:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_155"
@@ -1328,16 +1482,18 @@ rule "AssociationRules_long_155"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction3:TouristAttraction(name=="Chinatown")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_156"
     when
     $touristattraction1:TouristAttraction(name=="National Orchid Garden")
     $touristattraction2:TouristAttraction(name=="Singapore Flyer")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_157"
@@ -1345,8 +1501,9 @@ rule "AssociationRules_long_157"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction3:TouristAttraction(name=="Orchard Road")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_158"
@@ -1354,8 +1511,9 @@ rule "AssociationRules_long_158"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Singapore Zoo")
     $touristattraction3:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_159"
@@ -1363,30 +1521,34 @@ rule "AssociationRules_long_159"
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="Marina Bay Sands Skypark")
     $touristattraction3:TouristAttraction(name=="Marina Bay")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Cloud Forest");
+    $recommendationBox.getAssociatedAttractionNames().add("Cloud Forest");
 end
 
 rule "AssociationRules_long_160"
     when
     $touristattraction1:TouristAttraction(name=="Gardens by the Bay")
     $touristattraction2:TouristAttraction(name=="National Orchid Garden")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Botanic Gardens");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Botanic Gardens");
 end
 
 rule "AssociationRules_long_161"
     when
     $touristattraction1:TouristAttraction(name=="Singapore Flyer")
     $touristattraction2:TouristAttraction(name=="Jurong Bird Park")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Zoo");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Zoo");
 end
 
 rule "AssociationRules_long_162"
     when
     $touristattraction1:TouristAttraction(name=="River Safari")
+    $recommendationBox: AssociationRecommendationDTO(associatedAttractionNames!=null)
     then
-    System.out.printf("Associated attraction is: Singapore Zoo");
+    $recommendationBox.getAssociatedAttractionNames().add("Singapore Zoo");
 end
 

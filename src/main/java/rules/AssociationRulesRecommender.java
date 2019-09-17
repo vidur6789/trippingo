@@ -16,20 +16,33 @@ public class AssociationRulesRecommender {
 
         KieServices kieServices = KieServices.Factory.get();
         KieContainer kContainer = kieServices.getKieClasspathContainer();
-        KieSession kieSession = kContainer.newKieSession("ksession-rules");
+        KieSession kieSession_long = kContainer.newKieSession("ksession-long-rules");
+		KieSession kieSession_short = kContainer.newKieSession("ksession-short-rules");
         
         TouristAttraction[] attractions = Arrays.stream(inputs).map(AssociationRecommendationDTO::getAttractionNames).flatMap(Arrays::stream)
         		.map(AssociationRulesRecommender::mapToTouristAttraction)
         		.toArray(TouristAttraction[]::new);
-        
-        for (TouristAttraction attractionName: attractions) {
-    		kieSession.insert(attractionName);
-    	}
-        
-        AssociationRecommendationDTO recommendation = new AssociationRecommendationDTO();
-        kieSession.insert(recommendation);
-        kieSession.fireAllRules();
-        return new AssociationRecommendationDTO[] {recommendation};
+        if (attractions.length > 1){
+			for (TouristAttraction attractionName: attractions) {
+				kieSession_long.insert(attractionName);
+			}
+
+			AssociationRecommendationDTO recommendation = new AssociationRecommendationDTO();
+			kieSession_long.insert(recommendation);
+			kieSession_long.fireAllRules();
+			return new AssociationRecommendationDTO[] {recommendation};
+		}
+		else{
+			for (TouristAttraction attractionName: attractions) {
+				kieSession_short.insert(attractionName);
+			}
+
+			AssociationRecommendationDTO recommendation = new AssociationRecommendationDTO();
+			kieSession_short.insert(recommendation);
+			kieSession_short.fireAllRules();
+			return new AssociationRecommendationDTO[] {recommendation};
+		}
+
 
     }
 	
