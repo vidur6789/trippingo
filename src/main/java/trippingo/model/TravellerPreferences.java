@@ -6,6 +6,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 
@@ -24,7 +25,7 @@ public class TravellerPreferences {
 	@Enumerated(EnumType.STRING)
 	private MealPreference mealPreference;
 	
-	@ElementCollection(targetClass = AttractionCategory.class)
+	@ElementCollection(targetClass = AttractionCategory.class, fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	@JoinTable(name = "travel_interests", joinColumns = @JoinColumn(name = "travel_plan_id"))
 	private Set<AttractionCategory> categories;
