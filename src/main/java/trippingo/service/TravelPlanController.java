@@ -118,6 +118,7 @@ public class TravelPlanController {
 														   @RequestParam(value="count", required = false, defaultValue = "5") int resultCount) {
 		
 		TravellerPreferences preferences = repository.findById(id).map(TravelPlan::getTravelPreferences).orElse(new TravellerPreferences());
+		resultCount = preferences.getNoOfTravelDays().intValue() *3; 
 		List<String> keywords = preferences.getCategories().stream().map(AttractionCategory::name).collect(Collectors.toList());
 		return recommendationService.fetchRecommendations(preferences.getTravellerType(), keywords, null, resultCount);
 	}
