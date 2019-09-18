@@ -11,10 +11,10 @@
 	<!--<exhaustiveSearch> <exhaustiveSearchType>BRUTE_FORCE</exhaustiveSearchType> 
 		</exhaustiveSearch> -->
 	<termination>
-		<secondsSpentLimit>10</secondsSpentLimit>
+		<secondsSpentLimit>5</secondsSpentLimit>
 	</termination>
 	<!-- Optimization algorithms configuration -->
-
+	<localSearch><localSearchType>HILL_CLIMBING</localSearchType></localSearch>
 	<!-- moveThreadCount>AUTO</moveThreadCount-->
 
 

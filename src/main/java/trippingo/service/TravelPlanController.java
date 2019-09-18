@@ -185,7 +185,7 @@ public class TravelPlanController {
 		List<TouristAttraction> selectedAttractions = fetchSelectedAttractions(id);
 		Set<Long> selectedAttractionIds = selectedAttractions.stream().map(TouristAttraction::getId).collect(Collectors.toSet());
 		TravellerPreferences preferences = travelPlan.getTravelPreferences();
-		int maxAttractions = preferences.getNoOfTravelDays().intValue() * 4;
+		int maxAttractions = preferences.getNoOfTravelDays().intValue() * 3;
 //		int moreAttractions =maxAttractions - selectedAttractions.size();
 		List<TouristAttraction> otherRecommendations= (List<TouristAttraction>) fetchRecommendation(id, maxAttractions);
 		otherRecommendations.stream().filter(rec -> !selectedAttractionIds.contains(rec.getId())).forEach(selectedAttractions::add);
@@ -210,7 +210,8 @@ public class TravelPlanController {
 		DayPlan dayPlan = new DayPlan();
 		dayPlan.setSerialNo(dayPlanEntry.getKey());
 		if(dayPlanEntry.getKey()> -1)
-			dayPlan.setTravelDate(startDate.plusDays(dayPlanEntry.getKey()- 1));
+			if(startDate!=null)
+				dayPlan.setTravelDate(startDate.plusDays(dayPlanEntry.getKey()- 1));
 		Set<AttractionVisit> attractionVisits = dayPlanEntry.getValue().stream().map(this::mapToAttractionVisit).collect(Collectors.toSet());
 		dayPlan.setAttractionVisits(attractionVisits );
 		return dayPlan;
