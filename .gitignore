@@ -5,4 +5,4 @@
 build
 bin
 logs
-data
+data/gold
