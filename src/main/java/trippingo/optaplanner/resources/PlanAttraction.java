@@ -110,11 +110,11 @@ public class PlanAttraction {
 	    		maxTimePenalty = 0;
 	    	}
 	    	
-	    	return (minTimePenalty + maxTimePenalty) * 100 ;
+	    	return Double.valueOf((minTimePenalty*6 + maxTimePenalty+traveltime*3)).intValue() ;
 	    }
 	    
 	    else { //Penalize duration shorter than mean, Reward duration more than mean
-	    	return duration - getAttraction().getDurationTimeGrains();
+	    	return Double.valueOf((duration - getAttraction().getDurationTimeGrains())).intValue();
 	    		    	
 	    }
 	    

@@ -201,7 +201,7 @@ public class TravelPlanController {
 	
 	private Itinerary mapToItinerary(TripPlanner solvedTripPlanner, LocalDate startDate) {
 		Itinerary itinerary = new Itinerary();
-		Set<DayPlan> dayPlans = solvedTripPlanner.getDayPlans().entrySet().stream().map(d -> this.mapToDayPlan(d, startDate)).collect(Collectors.toSet());
+		Set<DayPlan> dayPlans = solvedTripPlanner.getDayPlans().entrySet().stream().filter(d -> d.getKey() > 0).map(d -> this.mapToDayPlan(d, startDate)).collect(Collectors.toSet());
 		itinerary.setDayPlans(dayPlans);
 		return itinerary;
 	}
@@ -212,8 +212,11 @@ public class TravelPlanController {
 		if(dayPlanEntry.getKey()> -1)
 			if(startDate!=null)
 				dayPlan.setTravelDate(startDate.plusDays(dayPlanEntry.getKey()- 1));
-		Set<AttractionVisit> attractionVisits = dayPlanEntry.getValue().stream().map(this::mapToAttractionVisit).collect(Collectors.toSet());
-		dayPlan.setAttractionVisits(attractionVisits );
+		List<AttractionVisit> attractionVisits = dayPlanEntry.getValue().stream()
+				.map(this::mapToAttractionVisit)
+				.sorted((a1,a2) -> a1.getVisitStartTime().compareTo(a2.getVisitStartTime()))
+				.collect(Collectors.toList());
+		dayPlan.setAttractionVisits(attractionVisits);
 		return dayPlan;
 		
 	}

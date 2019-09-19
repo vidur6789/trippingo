@@ -1,6 +1,7 @@
 package trippingo.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,7 @@ public class DayPlan {
 	
 	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
 	@JoinColumn(name="day_plan_id")
-	private Set<AttractionVisit> attractionVisits;
+	private List<AttractionVisit> attractionVisits;
 	
 	public LocalDate getTravelDate() {
 		return travelDate;
@@ -49,10 +50,10 @@ public class DayPlan {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Set<AttractionVisit> getAttractionVisits() {
+	public List<AttractionVisit> getAttractionVisits() {
 		return attractionVisits;
 	}
-	public void setAttractionVisits(Set<AttractionVisit> attractionVisits) {
+	public void setAttractionVisits(List<AttractionVisit> attractionVisits) {
 		this.attractionVisits = attractionVisits;
 	}
 	public Boolean getDailyValidation() {

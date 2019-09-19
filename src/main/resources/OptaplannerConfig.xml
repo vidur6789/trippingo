@@ -11,11 +11,19 @@
 	<!--<exhaustiveSearch> <exhaustiveSearchType>BRUTE_FORCE</exhaustiveSearchType> 
 		</exhaustiveSearch> -->
 	<termination>
-		<secondsSpentLimit>5</secondsSpentLimit>
+		<secondsSpentLimit>30</secondsSpentLimit>
 	</termination>
 	<!-- Optimization algorithms configuration -->
-	<localSearch><localSearchType>HILL_CLIMBING</localSearchType></localSearch>
-	<!-- moveThreadCount>AUTO</moveThreadCount-->
+	<localSearch>
+	<acceptor>
+			<entityTabuRatio>0.1</entityTabuRatio>
+		</acceptor>
+		<forager>
+			<acceptedCountLimit>1000</acceptedCountLimit>
+		</forager>
+	</localSearch>
+	
+	<!-- moveThreadCount>AUTO</moveThreadCount -->
 
 
 </solver>

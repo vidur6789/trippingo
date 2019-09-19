@@ -62,14 +62,14 @@ public class TripSolver implements  CommandLineRunner {
 		int maxHours = 14;
 		int diff = maxHours - travellerPreferences.getTravelHoursPerDay().intValue();
 		int start = 32 + (diff/2)*4;
-		int end = start + travellerPreferences.getTravelHoursPerDay().intValue()*4;
+		int end =start + travellerPreferences.getTravelHoursPerDay().intValue()*4;
 		unsolvedTripSolver.setTimeGrainSlots(generateTimeGrains(travellerPreferences.getNoOfTravelDays(), start, end));
 
 		// Solve the problem
 		try {
 			TripPlanner bestTripPlanner=null;
-			for (int i=0; i<3;i++) {
-				unsolvedTripSolver.setAttraction(planAttractions.subList(0, planAttractions.size()-i));
+			for (int i=0; i<1;i++) {
+				unsolvedTripSolver.setAttraction(planAttractions);
 				TripPlanner solvedTripSolver = solver.solve(unsolvedTripSolver);
 				logger.info(solvedTripSolver.toString());
 				
@@ -99,12 +99,14 @@ public class TripSolver implements  CommandLineRunner {
 		List <TimeGrain> timeGrainSlots = new ArrayList<TimeGrain>();
 		for(Day day: days) {
 			for(int i=0; i <24*4;i++) {
-				TimeGrain timeGrain = new TimeGrain();
-				timeGrain.setDay(day);
-				timeGrain.setGrainIndex(i);
-				String id = day.getDayOfYear() + "" + i;
-				timeGrain.setId(id);
-				timeGrainSlots.add(timeGrain);
+				if(i >=startTimeSlot && i <=lastTravelSlot) {
+					TimeGrain timeGrain = new TimeGrain();
+					timeGrain.setDay(day);
+					timeGrain.setGrainIndex(i);
+					String id = day.getDayOfYear() + "" + i;
+					timeGrain.setId(id);
+					timeGrainSlots.add(timeGrain);
+				}
 			}
 		}
 		return timeGrainSlots;	
