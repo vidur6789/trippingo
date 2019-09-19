@@ -33,7 +33,6 @@ dependencies {
 	implementation 'org.drools:drools-compiler:7.23.0.Final'
 	implementation 'org.drools:drools-core:7.23.0.Final'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-rules'
     // Use JUnit rules framework
     testImplementation 'junit:junit:4.12'
     
@@ -46,11 +45,11 @@ configurations {
     }
 }
 
-//
-//application {
-//    // Define the main class for the application
-//    mainClassName = 'trippingo.TrippingoApp'
-//}
+
+application {
+    // Define the main class for the application
+    mainClassName = 'trippingo.TrippingoApp'
+}
 
 
 springBoot {
