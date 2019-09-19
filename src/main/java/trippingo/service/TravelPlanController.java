@@ -209,14 +209,15 @@ public class TravelPlanController {
 	private DayPlan mapToDayPlan(Map.Entry<Integer, List<PlanAttraction>> dayPlanEntry, LocalDate startDate) {
 		DayPlan dayPlan = new DayPlan();
 		dayPlan.setSerialNo(dayPlanEntry.getKey());
-		if(dayPlanEntry.getKey()> -1)
+		if(dayPlanEntry.getKey()> -1) {
 			if(startDate!=null)
 				dayPlan.setTravelDate(startDate.plusDays(dayPlanEntry.getKey()- 1));
-		List<AttractionVisit> attractionVisits = dayPlanEntry.getValue().stream()
-				.map(this::mapToAttractionVisit)
-				.sorted((a1,a2) -> a1.getVisitStartTime().compareTo(a2.getVisitStartTime()))
-				.collect(Collectors.toList());
-		dayPlan.setAttractionVisits(attractionVisits);
+				List<AttractionVisit> attractionVisits = dayPlanEntry.getValue().stream()
+						.map(this::mapToAttractionVisit)
+						.sorted((a1,a2) -> a1.getVisitStartTime().compareTo(a2.getVisitStartTime()))
+						.collect(Collectors.toList());
+				dayPlan.setAttractionVisits(attractionVisits);
+		}
 		return dayPlan;
 		
 	}
