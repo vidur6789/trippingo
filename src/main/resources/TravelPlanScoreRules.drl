@@ -25,14 +25,28 @@ rule "checkClosingHours"
 		
 end
 
-rule "noDuplicateTimeslots"
+/**
+rule "overlapping durations"
 	when
 		$leftAssignment : PlanAttraction (startingTimeGrain != null)
 		$rightAssignment : PlanAttraction (startingTimeGrain != null, attraction.id <  $leftAssignment.getAttraction().getId())
 		
 	then
         if ($leftAssignment.calculateOverlap($rightAssignment) != 0) {
-            scoreHolder.addHardConstraintMatch(kcontext, -150);
+            scoreHolder.addHardConstraintMatch(kcontext, -10);
+        }	
+		
+		
+end
+**/
+rule "noDuplicateTimeslots"
+	when
+		$leftAssignment : PlanAttraction ($startTimeGrain: startingTimeGrain != null)
+		$rightAssignment : PlanAttraction (startingTimeGrain != null, $startTimeGrain.grainIndex == startingTimeGrain.grainIndex)
+		
+	then
+        if ($leftAssignment.calculateOverlap($rightAssignment) != 0) {
+            scoreHolder.addHardConstraintMatch(kcontext, -100);
         }	
 		
 		
