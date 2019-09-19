@@ -1,4 +1,4 @@
-# trippingo - Travel Planner
+# Trippingo - SG Travel Planner
 
 This is the Spring Boot application for the NUS-ISS MTech course Intelligent Reasoning Systems which exposes a variety of APIs for travel recommendations, itinerary optimisation and retrieving information about Tourist attractions, promotion bundles and travel distances in Singapore. 
 
